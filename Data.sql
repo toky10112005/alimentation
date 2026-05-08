@@ -7,8 +7,10 @@ CREATE TABLE IF NOT EXISTS users(
     username VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    genre ENUM('Homme', 'Femme') NOT NULL,
+    genre ENUM('Homme', 'Femme', 'Autre') NOT NULL,
     telephone VARCHAR(20),
+    taille INT,
+    poids INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

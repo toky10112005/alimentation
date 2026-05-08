@@ -13,7 +13,7 @@ class UserModel extends Model
     protected $allowedFields = ['username', 'email', 'password','genre','telephone','taille','poids','created_at'];
 
     protected $validationRules = [
-        'username' => 'required|min_length[3]|max_length[255]',
+        'username' => 'required|min_length[2]|max_length[255]',
         'email' => 'required|valid_email|is_unique[users.email]',
         'password' => 'required|min_length[6]',
         'genre' => 'required|in_list[Homme,Femme,Autre]',
@@ -22,16 +22,16 @@ class UserModel extends Model
         'poids' => 'required|integer|greater_than[0]',
     ];
 
-    public function authenticateCredentials(string $email, string $motDePasse): ?array
+    public function authenticateCredentials(string $email, string $motDePasse)//: ?array
     {
         $user = $this->where('email', $email)->first();
 
         if (!$user) {
-            return null;
+            return "email not found";
         }
 
         if (!password_verify($motDePasse, $user['password'])) {
-            return null;
+            return "incorrect password";
         }
 
         return $user;
@@ -56,6 +56,11 @@ class UserModel extends Model
         }
 
         return $this->where('email', $email)->first();
+    }
+
+    public function calculeIMC(int $taille, int $poids): float
+    {
+        return $poids / (($taille / 100) ** 2);
     }
 
 }

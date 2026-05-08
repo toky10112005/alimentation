@@ -26,17 +26,23 @@ class User extends BaseController
 
         $user = $this->userModel->authenticateCredentials($email, $mot_de_passe);
       //  dd($user);
-        if ($user !== null) {
+        if ($user !== null && !is_string($user)) {
             // Authentification réussie
-            $this->session->set('username', $user['username']);
-            $this->session->set('user_id', $user['id']);
+        $this->session->set([
+            'username' => $user['username'],
+            'user_id'  => $user['id'],
+            'isLoggedIn' => true
+        ]);
+
+        $IMC = $this->userModel->calculeIMC($user['taille'], $user['poids']);
+        $this->session->set('IMC', $IMC);//Au cas où
 
             //  return redirect()->to('accueil');
-            return view('accueil');
+            return view('accueil',[ 'IMC' => $IMC]);
         } else {
             // Authentification échouée
             // return redirect()->back()->withInput()->with('error', 'Email or password incorrect.');
-            return view('login', ['error' => 'Email or password incorrect.']);
+            return view('login', ['error' => $user]); // Affiche le message d'erreur retourné par authenticateCredentials
         }
     }
 

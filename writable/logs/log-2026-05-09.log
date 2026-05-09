@@ -427,3 +427,175 @@ WARNING - 2026-05-09 15:10:01 --> [DEPRECATED] Creation of dynamic property App\
  6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
  7 SYSTEMPATH/rewrite.php(44): require_once('/home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/public/index.php')
 DEBUG - 2026-05-09 15:10:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 16:57:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-09 16:58:01 --> CSRF token verified.
+DEBUG - 2026-05-09 16:58:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-05-09 16:58:01 --> Error connecting to the database: mysqli_sql_exception: No such file or directory in /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/app/Models/GenreModel.php(17): CodeIgniter\BaseModel->first()
+#7 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/app/Controllers/User.php(79): App\Models\GenreModel->getByLabel()
+#8 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/CodeIgniter.php(951): App\Controllers\User->page()
+#9 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/rewrite.php(44): require_once('...')
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No such file or directory in /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#5 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/app/Models/GenreModel.php(17): CodeIgniter\BaseModel->first()
+#6 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/app/Controllers/User.php(79): App\Models\GenreModel->getByLabel()
+#7 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/CodeIgniter.php(951): App\Controllers\User->page()
+#8 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 /home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/system/rewrite.php(44): require_once('...')
+#14 {main}
+CRITICAL - 2026-05-09 16:58:01 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No such file or directory
+[Method: POST, Route: user/inscription]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 5 APPPATH/Models/GenreModel.php(17): CodeIgniter\BaseModel->first()
+ 6 APPPATH/Controllers/User.php(79): App\Models\GenreModel->getByLabel()
+ 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\User->page()
+ 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/public/index.php')
+INFO - 2026-05-09 16:58:47 --> CSRF token verified.
+DEBUG - 2026-05-09 16:58:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-09 16:59:16 --> CSRF token verified.
+DEBUG - 2026-05-09 16:59:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 16:59:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 16:59:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:00:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:00:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-05-09 17:00:14 --> CodeIgniter\Security\Exceptions\SecurityException: The action you requested is not allowed.
+[Method: POST, Route: user/put]
+in SYSTEMPATH/Security/Security.php on line 258.
+ 1 SYSTEMPATH/Security/Security.php(258): CodeIgniter\Security\Exceptions\SecurityException::forDisallowedAction()
+ 2 SYSTEMPATH/Filters/CSRF.php(52): CodeIgniter\Security\Security->verify()
+ 3 SYSTEMPATH/Filters/Filters.php(241): CodeIgniter\Filters\CSRF->before()
+ 4 SYSTEMPATH/Filters/Filters.php(221): CodeIgniter\Filters\Filters->runBefore()
+ 5 SYSTEMPATH/CodeIgniter.php(465): CodeIgniter\Filters\Filters->run()
+ 6 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+10 SYSTEMPATH/rewrite.php(44): require_once('/home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/public/index.php')
+DEBUG - 2026-05-09 17:00:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:00:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:02:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:02:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:02:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:02:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:02:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:02:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:02:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:02:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:02:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:02:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:02:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:02:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:02:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:02:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:02:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:02:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:02:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-05-09 17:02:16 --> CodeIgniter\Security\Exceptions\SecurityException: The action you requested is not allowed.
+[Method: POST, Route: user/inscription]
+in SYSTEMPATH/Security/Security.php on line 258.
+ 1 SYSTEMPATH/Security/Security.php(258): CodeIgniter\Security\Exceptions\SecurityException::forDisallowedAction()
+ 2 SYSTEMPATH/Filters/CSRF.php(52): CodeIgniter\Security\Security->verify()
+ 3 SYSTEMPATH/Filters/Filters.php(241): CodeIgniter\Filters\CSRF->before()
+ 4 SYSTEMPATH/Filters/Filters.php(221): CodeIgniter\Filters\Filters->runBefore()
+ 5 SYSTEMPATH/CodeIgniter.php(465): CodeIgniter\Filters\Filters->run()
+ 6 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+10 SYSTEMPATH/rewrite.php(44): require_once('/home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/public/index.php')
+DEBUG - 2026-05-09 17:02:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:02:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:02:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:02:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-09 17:04:01 --> CSRF token verified.
+DEBUG - 2026-05-09 17:04:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-09 17:04:21 --> CSRF token verified.
+DEBUG - 2026-05-09 17:04:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-05-09 17:04:21 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "accueil.php"
+[Method: POST, Route: user/put]
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile()
+ 2 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
+ 3 APPPATH/Controllers/User.php(171): view()
+ 4 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\User->put()
+ 5 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+10 SYSTEMPATH/rewrite.php(44): require_once('/home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/public/index.php')
+INFO - 2026-05-09 17:10:34 --> CSRF token verified.
+DEBUG - 2026-05-09 17:10:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-09 17:10:59 --> CSRF token verified.
+DEBUG - 2026-05-09 17:10:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-09 17:11:19 --> CSRF token verified.
+DEBUG - 2026-05-09 17:11:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-09 17:14:44 --> CSRF token verified.
+DEBUG - 2026-05-09 17:14:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-09 17:14:56 --> CSRF token verified.
+DEBUG - 2026-05-09 17:14:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:14:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:15:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:16:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:16:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:16:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:16:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:16:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:16:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:17:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-05-09 17:18:17 --> CodeIgniter\Security\Exceptions\SecurityException: The action you requested is not allowed.
+[Method: POST, Route: user/put]
+in SYSTEMPATH/Security/Security.php on line 258.
+ 1 SYSTEMPATH/Security/Security.php(258): CodeIgniter\Security\Exceptions\SecurityException::forDisallowedAction()
+ 2 SYSTEMPATH/Filters/CSRF.php(52): CodeIgniter\Security\Security->verify()
+ 3 SYSTEMPATH/Filters/Filters.php(241): CodeIgniter\Filters\CSRF->before()
+ 4 SYSTEMPATH/Filters/Filters.php(221): CodeIgniter\Filters\Filters->runBefore()
+ 5 SYSTEMPATH/CodeIgniter.php(465): CodeIgniter\Filters\Filters->run()
+ 6 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+10 SYSTEMPATH/rewrite.php(44): require_once('/home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/public/index.php')
+DEBUG - 2026-05-09 17:18:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:18:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:18:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:18:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-09 17:18:44 --> CSRF token verified.
+DEBUG - 2026-05-09 17:18:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:18:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:25:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:25:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 17:25:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

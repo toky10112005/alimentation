@@ -17,6 +17,14 @@
                     <p class="text-muted mb-0">Ces informations aident a estimer tes besoins.</p>
                 </div>
 
+                <?php if (isset($errors)): ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?php foreach ($errors as $error): ?>
+                            <div><?= esc($error) ?></div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+
                 <div class="card shadow-sm">
                     <div class="card-body p-4">
                         <form action="/user/put" method="post" class="row g-3">
@@ -28,6 +36,20 @@
                             <div class="col-12 col-md-6">
                                 <label for="poids" class="form-label">Poids (kg)</label>
                                 <input type="number" class="form-control" name="poids" id="poids" placeholder="ex: 65" min="1" step="0.1" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="objectif_type" class="form-label">Objectif</label>
+                                <select class="form-select" name="objectif_type" id="objectif_type" required>
+                                    <?php if (isset($objectifs)): ?>
+                                        <?php foreach ($objectifs as $objectif): ?>
+                                            <option value="<?= esc($objectif['id']) ?>"><?= esc($objectif['name']) ?></option>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label for="poids_cible" class="form-label">Poids cible (kg)</label>
+                                <input type="number" class="form-control" name="poids_cible" id="poids_cible" placeholder="ex: 60" min="1" step="0.1" required>
                             </div>
                             <div class="col-12 d-flex gap-2">
                                 <button type="submit" class="btn btn-primary">Terminer</button>

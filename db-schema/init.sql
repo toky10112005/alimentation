@@ -1,3 +1,4 @@
+DROP DATABASE regime_db;
 CREATE DATABASE IF NOT EXISTS regime_db;
 USE regime_db;
 

@@ -24,6 +24,7 @@ $routes->get('/admin/insert', 'Admin::insertredirect');
 $routes->post('/admin/put', 'Admin::put');
 
 $routes->get('/objectif', 'Regime::objectif');
+$routes->get('/details/(:num)', 'Activite::details/$1');
 
 $routes->group('admin', ['filter' => 'role:admin'], function($routes) {
     // Autres routes réservées aux administrateurs

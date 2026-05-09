@@ -28,6 +28,7 @@
                 <div class="card shadow-sm">
                     <div class="card-body p-4">
                         <form action="/user/inscription" method="post" class="row g-3">
+                            <?= csrf_field() ?>
                             <div class="col-12">
                                 <label class="form-label" for="username">Nom d'utilisateur</label>
                                 <input type="text" class="form-control" name="username" id="username" placeholder="ex: Rakoto" required>

@@ -63,4 +63,6 @@ class UserModel extends Model
         return $poids / (($taille / 100) ** 2);
     }
 
+    
+
 }

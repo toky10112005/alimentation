@@ -9,6 +9,12 @@
     <link href="/assets/css/theme.css" rel="stylesheet">
 </head>
 <body class="bg-light">
+
+    <nav>
+        <a href="/redirectadmin">Connexion Administrateur</a>
+    </nav>
+
+
     <main class="container py-5">
         <div class="row justify-content-center">
             <div class="col-12 col-sm-10 col-md-7 col-lg-5">
@@ -31,6 +37,7 @@
                 <div class="card shadow-sm">
                     <div class="card-body p-4">
                         <form action="/user/login" method="post" class="vstack gap-3">
+                            <?= csrf_field() ?>
                             <div>
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" name="email" id="email" placeholder="ex: nom@email.com" required>

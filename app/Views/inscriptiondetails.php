@@ -20,6 +20,7 @@
                 <div class="card shadow-sm">
                     <div class="card-body p-4">
                         <form action="/user/put" method="post" class="row g-3">
+                            <?= csrf_field() ?>
                             <div class="col-12 col-md-6">
                                 <label for="taille" class="form-label">Taille (cm)</label>
                                 <input type="number" class="form-control" name="taille" id="taille" placeholder="ex: 170" min="1" step="1" required>

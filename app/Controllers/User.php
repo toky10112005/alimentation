@@ -80,4 +80,11 @@ class User extends BaseController
 
         return view('accueil');
     } 
+
+
+    public function redirectadmin(){
+        return view('adminlogin');
+    }
+
+   
 }

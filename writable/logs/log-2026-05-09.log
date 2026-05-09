@@ -409,3 +409,21 @@ DEBUG - 2026-05-09 13:52:18 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2026-05-09 13:52:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-05-09 13:52:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-05-09 13:52:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2026-05-09 15:09:45 --> [DEPRECATED] Creation of dynamic property App\Controllers\User::$categorieModel is deprecated in APPPATH/Controllers/User.php on line 17.
+ 1 SYSTEMPATH/CodeIgniter.php(921): App\Controllers\User->__construct()
+ 2 SYSTEMPATH/CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH/rewrite.php(44): require_once('/home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/public/index.php')
+DEBUG - 2026-05-09 15:09:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2026-05-09 15:10:01 --> [DEPRECATED] Creation of dynamic property App\Controllers\User::$categorieModel is deprecated in APPPATH/Controllers/User.php on line 17.
+ 1 SYSTEMPATH/CodeIgniter.php(921): App\Controllers\User->__construct()
+ 2 SYSTEMPATH/CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH/rewrite.php(44): require_once('/home/andrianina/s4/systeme_dinfo/PROJETS-TRINOME/Alimentation/alimentation/public/index.php')
+DEBUG - 2026-05-09 15:10:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

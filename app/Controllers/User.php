@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\UserModel;
+use App\Models\CategorieModel;
 use App\Controllers\BaseController;
 use Config\Services;
 
@@ -13,6 +14,7 @@ class User extends BaseController
 
     public function __construct(){
         $this->userModel = new UserModel();
+        $this->categorieModel = new CategorieModel();
         $this->session = Services::session();
     }
 
@@ -37,8 +39,10 @@ class User extends BaseController
         $IMC = $this->userModel->calculeIMC($user['taille'], $user['poids']);
         $this->session->set('IMC', $IMC);//Au cas où
 
+        $categories = $this->categorieModel->getAll();
+
             //  return redirect()->to('accueil');
-            return view('accueil',[ 'IMC' => $IMC]);
+            return view('accueil',[ 'IMC' => $IMC, 'categories' => $categories]);
         } else {
             // Authentification échouée
             // return redirect()->back()->withInput()->with('error', 'Email or password incorrect.');
@@ -78,8 +82,36 @@ class User extends BaseController
         $this->session->set('username', $user['username']);
         $this->session->set('user_id', $user['id']);
 
-        return view('accueil');
+        $IMC = $this->userModel->calculeIMC((int) $taille, (int) $poids);
+        $this->session->set('IMC', $IMC);
+
+        return view('accueil', ['IMC' => $IMC]);
     } 
+
+    // public function objectif(){
+    //     $objectif = $this->request->getGet('objectif');
+
+    //     $categories = $this->categorieModel->getAll();
+    //     $categoryIds = array_column($categories, 'id');
+    //     if (!in_array($objectif, $categoryIds, true)) {
+    //         return view('accueil', ['IMC' => $this->session->get('IMC'), 'categories' => $categories]);
+    //     }
+
+    //     $imc = $this->session->get('IMC');
+    //     $category = $this->categorieModel->getById($objectif);
+    //     if (is_numeric($imc) && $category) {
+    //         $imc = (float) $imc;
+    //         if ($imc >= 25 && strpos($category['name'], 'Augmenter') !== false) {
+    //             return view('accueil', ['IMC' => $imc, 'categories' => $categories]);
+    //         }
+    //         if ($imc < 18.5 && strpos($category['name'], 'Reduire') !== false) {
+    //             return view('accueil', ['IMC' => $imc, 'categories' => $categories]);
+    //         }
+    //     }
+
+    //     $this->session->set('objectif', $objectif);
+    //     return view('accueil', ['IMC' => $this->session->get('IMC'), 'categories' => $categories]);
+    // }
 
 
     public function redirectadmin(){

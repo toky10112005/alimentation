@@ -17,7 +17,7 @@
                 </svg>
                 Gestion d'alimentation
             </a>
-            <div class="ms-auto text-white-50 small">
+            <div class="ms-auto text-white-50 medium">
                 Connecte : <span class="text-white fw-semibold"><?= esc(session('username')) ?></span>
             </div>
         </div>
@@ -40,8 +40,17 @@
                         <h2 class="h5 mb-0">Ton IMC</h2>
                     </div>
                     <div class="card-body p-4 d-flex flex-column">
-                        <?php if (isset($IMC)): 
-                            $imc = $IMC;
+                        <?php
+                            $imc = null;
+                            if (isset($IMC)) {
+                                $imc = $IMC;
+                            } elseif (session('IMC') !== null) {
+                                $imc = session('IMC');
+                            }
+                        ?>
+
+                        <?php if ($imc !== null): 
+                            $imc = (float) $imc;
                             $categorie = '';
                             $badgeClass = '';
                             if ($imc < 18.5): 
@@ -90,47 +99,47 @@
                         <h2 class="h5 mb-1">Ton objectif</h2>
                         <p class="text-muted mb-4">Selectionne un objectif parmi les 3 ci-dessous.</p>
 
-                        <form>
+                        <?php
+                            $selectedObjectif = session('objectif');
+                        ?>
+
+                        <form action="/objectif" method="get">
                             <div class="row g-3">
+                                <?php foreach ($categories as $category): 
+                                    $disable = false;
+                                    $disableReason = '';
+                                    if ($imc !== null) {
+                                        if (strpos($category['name'], 'Augmenter') !== false && $imc >= 25) {
+                                            $disable = true;
+                                            $disableReason = "Non recommande avec un IMC en surpoids/obesite.";
+                                        } elseif (strpos($category['name'], 'Reduire') !== false && $imc < 18.5) {
+                                            $disable = true;
+                                            $disableReason = "Non recommande avec un IMC bas (insuffisance ponderee).";
+                                        }
+                                    }
+                                ?>
                                 <div class="col-12 col-md-4">
-                                    <label class="d-block border rounded-3 p-3 h-100 bg-white objectif-card" for="objectif-prise">
+                                    <label class="d-block border rounded-3 p-3 h-100 bg-white objectif-card <?= $disable ? 'opacity-50' : '' ?>" for="objectif-<?= esc($category['id']) ?>" <?= $disable ? 'aria-disabled="true" title="' . esc($disableReason, 'attr') . '"' : '' ?>>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="objectif" id="objectif-prise" value="augmenter_poids">
-                                            <span class="form-check-label fw-semibold">Augmenter son poids</span>
-                                        </div>
-                                        <div class="text-muted small mt-2">
-                                            Ciblage calorique legerement au-dessus de tes besoins.
-                                        </div>
-                                    </label>
-                                </div>
 
-                                <div class="col-12 col-md-4">
-                                    <label class="d-block border rounded-3 p-3 h-100 bg-white objectif-card" for="objectif-reduire">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="objectif" id="objectif-reduire" value="reduire_poids">
-                                            <span class="form-check-label fw-semibold">Reduire son poids</span>
-                                        </div>
-                                        <div class="text-muted small mt-2">
-                                            Deficit calorique modere et repas equilibres.
-                                        </div>
-                                    </label>
-                                </div>
+                        
 
-                                <div class="col-12 col-md-4">
-                                    <label class="d-block border rounded-3 p-3 h-100 bg-white objectif-card" for="objectif-imc">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="objectif" id="objectif-imc" value="imc_ideal">
-                                            <span class="form-check-label fw-semibold">Atteindre son IMC ideal</span>
+                                            <input class="form-check-input" type="radio" name="objectif" id="objectif-<?= esc($category['id']) ?>" value="<?= esc($category['id']) ?>" <?= $disable ? 'disabled' : '' ?> <?= (!$disable && $selectedObjectif == $category['id']) ? 'checked' : '' ?>>
+                                            <span class="form-check-label fw-semibold"><?= esc($category['name']) ?></span>
                                         </div>
                                         <div class="text-muted small mt-2">
-                                            Ajustement progressif pour viser une zone IMC saine.
+                                            <?= esc($category['description']) ?>
                                         </div>
+                                        <?php if ($disable): ?>
+                                            <div class="small mt-2 text-muted"><?= esc($disableReason) ?></div>
+                                        <?php endif; ?>
                                     </label>
                                 </div>
+                                <?php endforeach; ?>
                             </div>
 
                             <div class="d-flex flex-wrap gap-2 mt-4">
-                                <button type="button" class="btn btn-primary">Valider l'objectif</button>
+                                <button type="submit" class="btn btn-primary">Valider l'objectif</button>
                                 <a class="btn btn-outline-secondary" href="/">Retour</a>
                             </div>
                         </form>

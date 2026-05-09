@@ -6,16 +6,15 @@ use CodeIgniter\Model;
 
 class ActiviteModel extends Model
 {
-    protected $table = 'activite';
+    protected $table = 'activites_sportives';
     protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
-    protected $allowedFields = ['name', 'intesite', 'duree'];
+    protected $allowedFields = ['nom', 'description', 'calories_brules_heure'];
 
     protected $validationRules = [
-        'name' => 'required|string|max_length[255]',
-        'intesite' => 'required|in_list[faible,moyenne,élevée]',
-        'duree' => 'required|string|max_length[255]',
+        'nom' => 'required|string|max_length[255]',
+        'calories_brules_heure' => 'required|integer',
     ];
    
 
@@ -27,6 +26,14 @@ class ActiviteModel extends Model
     public function getById($id)
     {
         return $this->find($id);
+    }
+
+    public function getByRegimeId(int $regimeId): array
+    {
+        return $this->select('activites_sportives.nom AS name, regime_activites.duree_minutes_jour AS duree_minutes_jour')
+            ->join('regime_activites', 'regime_activites.activite_id = activites_sportives.id')
+            ->where('regime_activites.regime_id', $regimeId)
+            ->findAll();
     }
 
     public function createActivite($data)

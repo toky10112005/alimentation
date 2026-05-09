@@ -21,6 +21,12 @@
             <p class="text-muted mb-0">Choisis le regime qui correspond a ton objectif.</p>
         </div>
 
+        <?php if (session('IMC') !== null): ?>
+            <div class="alert alert-info" role="alert">
+                IMC actuel : <strong><?= esc(number_format((float) session('IMC'), 1)) ?></strong>
+            </div>
+        <?php endif; ?>
+
         <div class="row g-4">
             <?php foreach ($regimes as $regime): ?>
                 <div class="col-12 col-md-6 col-xl-4">

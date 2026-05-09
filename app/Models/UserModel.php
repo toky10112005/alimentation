@@ -10,19 +10,17 @@ class UserModel extends Model
     protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
-    protected $allowedFields = ['username', 'email', 'password','genre','telephone','taille','poids','created_at'];
+    protected $allowedFields = ['nom', 'email', 'mot_de_passe', 'id_genre', 'id_role', 'is_gold', 'solde_portefeuille'];
 
     protected $validationRules = [
-        'username' => 'required|min_length[2]|max_length[255]',
+        'nom' => 'required|min_length[2]|max_length[255]',
         'email' => 'required|valid_email|is_unique[users.email]',
-        'password' => 'required|min_length[6]',
-        'genre' => 'required|in_list[Homme,Femme,Autre]',
-        'telephone' => 'required|regex_match[/^[0-9]{10}$/]',
-        'taille' => 'required|integer|greater_than[0]',
-        'poids' => 'required|integer|greater_than[0]',
+        'mot_de_passe' => 'required|min_length[6]',
+        'id_genre' => 'required|integer',
+        'id_role' => 'required|integer',
     ];
 
-    public function authenticateCredentials(string $email, string $motDePasse)//: ?array
+    public function authenticateCredentials(string $email, string $motDePasse)
     {
         $user = $this->where('email', $email)->first();
 
@@ -30,25 +28,21 @@ class UserModel extends Model
             return "email not found";
         }
 
-        if (!password_verify($motDePasse, $user['password'])) {
+        if (!password_verify($motDePasse, $user['mot_de_passe'])) {
             return "incorrect password";
         }
 
         return $user;
     }
 
-    public function registerUser(string $nom, string $email, string $motDePasse, string $genre, string $telephone, int $taille, int $poids): ?array
+    public function createUser(string $nom, string $email, string $motDePasse, int $genreId, int $roleId): ?array
     {
         $saved = $this->save([
-            'username' => $nom,
+            'nom' => $nom,
             'email' => $email,
-            'password' => password_hash($motDePasse, PASSWORD_DEFAULT),
-            'genre' => $genre,
-            'telephone' => $telephone,
-            'taille' => $taille,
-            'poids' => $poids,
-            'created_at' => date('Y-m-d H:i:s'),
-
+            'mot_de_passe' => password_hash($motDePasse, PASSWORD_DEFAULT),
+            'id_genre' => $genreId,
+            'id_role' => $roleId,
         ]);
 
         if (!$saved) {
@@ -63,6 +57,19 @@ class UserModel extends Model
         return $poids / (($taille / 100) ** 2);
     }
 
-    
+    public function calculeMB(float $poids, float $tailleCm, int $age, string $genreLibelle): float
+    {
+        $base = (10 * $poids) + (6.25 * $tailleCm) - (5 * $age);
+        if (stripos($genreLibelle, 'homme') !== false) {
+            return $base + 5;
+        }
+
+        return $base - 161;
+    }
+
+    public function calculeMaintenance(float $mb): float
+    {
+        return $mb * 1.2;
+    }
 
 }

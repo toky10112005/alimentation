@@ -10,8 +10,8 @@
             "server": "localhost",
             "port": 3306,
             "driver": "MySQL",
-            "name": "alimentation",
-            "database": "alimentation",
+            "name": "regime_db",
+            "database": "regime_db",
             "username": "toky",
             "password": ""
         }

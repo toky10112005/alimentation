@@ -3,6 +3,11 @@
 namespace App\Controllers;
 use App\Models\UserModel;
 use App\Models\CategorieModel;
+use App\Models\GenreModel;
+use App\Models\RoleModel;
+use App\Models\RegimeModel;
+use App\Models\UserHealthProfileModel;
+use App\Models\UserObjectifModel;
 use App\Controllers\BaseController;
 use Config\Services;
 
@@ -11,10 +16,21 @@ class User extends BaseController
 {
     protected $userModel;
     protected $session;//Ho an ny username
+    protected $categorieModel;
+    protected $genreModel;
+    protected $roleModel;
+    protected $healthProfileModel;
+    protected $userObjectifModel;
+    protected $regimeModel;
 
     public function __construct(){
         $this->userModel = new UserModel();
         $this->categorieModel = new CategorieModel();
+        $this->genreModel = new GenreModel();
+        $this->roleModel = new RoleModel();
+        $this->healthProfileModel = new UserHealthProfileModel();
+        $this->userObjectifModel = new UserObjectifModel();
+        $this->regimeModel = new regimeModel();
         $this->session = Services::session();
     }
 
@@ -27,22 +43,26 @@ class User extends BaseController
         $mot_de_passe = $this->request->getPost('password');
 
         $user = $this->userModel->authenticateCredentials($email, $mot_de_passe);
-      //  dd($user);
         if ($user !== null && !is_string($user)) {
             // Authentification réussie
-        $this->session->set([
-            'username' => $user['username'],
-            'user_id'  => $user['id'],
-            'isLoggedIn' => true
-        ]);
+        $profile = $this->healthProfileModel->getLatestForUser((int) $user['id']);
+        $IMC = null;
+        if ($profile) {
+            $IMC = $this->userModel->calculeIMC((int) $profile['taille'], (int) $profile['poids_actuel']);
+        }
 
-        $IMC = $this->userModel->calculeIMC($user['taille'], $user['poids']);
-        $this->session->set('IMC', $IMC);//Au cas où
+        $existingObjectif = $this->userObjectifModel->getByUserId((int) $user['id']);
+        if ($existingObjectif) {
+            $this->session->set([
+                'username' => $user['nom'],
+                'user_id'  => $user['id'],
+                'isLoggedIn' => true,
+                'IMC' => $IMC,
+            ]);
+            return redirect()->to(site_url('/objectif?objectif=' . $existingObjectif['id_objectif_type']));
+        }
 
-        $categories = $this->categorieModel->getAll();
-
-            //  return redirect()->to('accueil');
-            return view('accueil',[ 'IMC' => $IMC, 'categories' => $categories]);
+            return view('login', ['error' => 'Objectif manquant pour ce compte.']);
         } else {
             // Authentification échouée
             // return redirect()->back()->withInput()->with('error', 'Email or password incorrect.');
@@ -59,11 +79,21 @@ class User extends BaseController
         $email = $this->request->getPost('email');
         $mot_de_passe = $this->request->getPost('password');
         $genre = $this->request->getPost('genre');
-         $telephone = $this->request->getPost('telephone');
 
-        $this->session->set('tempusers',['nom' => $nom, 'email' => $email, 'mot_de_passe' => $mot_de_passe, 'genre' => $genre, 'telephone' => $telephone]);
+        $genreRow = $this->genreModel->getByLabel($genre);
+        if (!$genreRow) {
+            return view('inscription', ['errors' => ['Genre invalide.']]);
+        }
 
-        return view('inscriptiondetails');
+        $this->session->set('tempusers', [
+            'nom' => $nom,
+            'email' => $email,
+            'mot_de_passe' => $mot_de_passe,
+            'id_genre' => (int) $genreRow['id'],
+        ]);
+
+        $objectifs = $this->categorieModel->getAll();
+        return view('inscriptiondetails', ['objectifs' => $objectifs]);
     }
 
     public function put(){
@@ -71,21 +101,78 @@ class User extends BaseController
         $tempusers = $this->session->get('tempusers');
         $taille = $this->request->getPost('taille');
         $poids = $this->request->getPost('poids');
-       
+        $poidsCible = $this->request->getPost('poids_cible');
+        $objectifTypeId = $this->request->getPost('objectif_type');
 
-        $user = $this->userModel->registerUser($tempusers['nom'], $tempusers['email'], $tempusers['mot_de_passe'], $tempusers['genre'], $tempusers['telephone'],$taille, $poids);
-
-        if (!$user) {   
-            return view ('inscription', ['errors' => $this->userModel->errors()]);
+        if (!$tempusers) {
+            return view('inscription', ['errors' => ['Session invalide, veuillez recommencer.']]);
         }
 
-        $this->session->set('username', $user['username']);
+        if ($poidsCible === null || $objectifTypeId === null) {
+            $objectifs = $this->categorieModel->getAll();
+            return view('inscriptiondetails', [
+                'errors' => ['Objectif et poids cible requis.'],
+                'objectifs' => $objectifs,
+            ]);
+        }
+
+        $role = $this->roleModel->getByName('user');
+        if (!$role) {
+            $objectifs = $this->categorieModel->getAll();
+            return view('inscriptiondetails', [
+                'errors' => ['Role utilisateur introuvable.'],
+                'objectifs' => $objectifs,
+            ]);
+        }
+
+        $user = $this->userModel->createUser(
+            $tempusers['nom'],
+            $tempusers['email'],
+            $tempusers['mot_de_passe'],
+            (int) $tempusers['id_genre'],
+            (int) $role['id']
+        );
+
+        if (!$user) {
+            return view('inscription', ['errors' => $this->userModel->errors()]);
+        }
+
+        $profileSaved = $this->healthProfileModel->createProfile(
+            (int) $user['id'],
+            (float) $poids,
+            (float) $taille
+        );
+
+        if (!$profileSaved) {
+            $objectifs = $this->categorieModel->getAll();
+            return view('inscriptiondetails', [
+                'errors' => $this->healthProfileModel->errors(),
+                'objectifs' => $objectifs,
+            ]);
+        }
+
+        $objectifSaved = $this->userObjectifModel->setObjective(
+            (int) $user['id'],
+            (int) $objectifTypeId,
+            (float) $poidsCible
+        );
+
+        if (!$objectifSaved) {
+            $objectifs = $this->categorieModel->getAll();
+            return view('inscriptiondetails', [
+                'errors' => $this->userObjectifModel->errors(),
+                'objectifs' => $objectifs,
+            ]);
+        }
+
+        $this->session->set('username', $user['nom']);
         $this->session->set('user_id', $user['id']);
 
         $IMC = $this->userModel->calculeIMC((int) $taille, (int) $poids);
         $this->session->set('IMC', $IMC);
 
-        return view('accueil', ['IMC' => $IMC]);
+        return redirect()->to(site_url('/objectif?objectif=' . (int) $objectifTypeId));
+        // $this->$regimeModel->getSuggestedRegimes($IMC, $objectifTypeId);
     } 
 
     // public function objectif(){
@@ -116,6 +203,20 @@ class User extends BaseController
 
     public function redirectadmin(){
         return view('adminlogin');
+    }
+
+    public function valeurportefeuille(){
+        $userId = (int) $this->session->get('user_id');
+        if (!$userId) {
+            return redirect()->to('/');
+        }
+
+        $user = $this->userModel->find($userId);
+        if (!$user) {
+            return redirect()->to('/');
+        }
+
+        return view('portefeuille', ['solde' => $user['solde_portefeuille']]);
     }
 
    

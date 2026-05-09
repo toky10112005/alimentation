@@ -23,8 +23,13 @@ $routes->post('/admin/login', 'Admin::loginAdmin');
 $routes->get('/admin/insert', 'Admin::insertredirect');
 $routes->post('/admin/put', 'Admin::put');
 
+$routes->get('/object/(:num)', 'Regime::objectif/$1');
+
 $routes->get('/objectif', 'Regime::objectif');
 $routes->get('/details/(:num)', 'Activite::details/$1');
+
+$routes->get('/portefeuille', 'User::valeurportefeuille');
+$routes->post('/saisisCode', 'CodeRecharge::valideCode');
 
 $routes->group('admin', ['filter' => 'role:admin'], function($routes) {
     // Autres routes réservées aux administrateurs

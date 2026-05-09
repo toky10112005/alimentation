@@ -13,6 +13,8 @@
         <div class="container">
             <a class="navbar-brand" href="/">Gestion d'alimentation</a>
         </div>
+
+        <div><a href="/portefeuille" class="btn btn-primary">Consulter Portefeuille</a></div>
     </nav>
 
     <main class="container py-4">
@@ -20,6 +22,12 @@
             <h1 class="h3 mb-2">Regimes proposes</h1>
             <p class="text-muted mb-0">Choisis le regime qui correspond a ton objectif.</p>
         </div>
+
+        <?php if (session('IMC') !== null): ?>
+            <div class="alert alert-info" role="alert">
+                IMC actuel : <strong><?= esc(number_format((float) session('IMC'), 1)) ?></strong>
+            </div>
+        <?php endif; ?>
 
         <div class="row g-4">
             <?php foreach ($regimes as $regime): ?>

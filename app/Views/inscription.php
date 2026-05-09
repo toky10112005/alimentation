@@ -46,12 +46,7 @@
                                 <select class="form-select" name="genre" id="genre" required>
                                     <option value="Homme">Homme</option>
                                     <option value="Femme">Femme</option>
-                                    <option value="Autre">Autre</option>
                                 </select>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <label class="form-label" for="telephone">Telephone</label>
-                                <input type="text" class="form-control" name="telephone" id="telephone" placeholder="ex: 03x xx xxx xx" required>
                             </div>
                             <div class="col-12 d-flex gap-2">
                                 <button type="submit" class="btn btn-primary">Suivant</button>

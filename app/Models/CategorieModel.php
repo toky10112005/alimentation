@@ -6,26 +6,28 @@ use CodeIgniter\Model;
 
 class CategorieModel extends Model
 {
-    protected $table = 'categorie';
+    protected $table = 'objectifs_types';
     protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
-    protected $allowedFields = ['name', 'description','ref_IMC'];
+    protected $allowedFields = ['libelle'];
 
     protected $validationRules = [
-        'name' => 'required|string|max_length[255]',
-        'description' => 'required|string',
-        'ref_IMC' => 'required|decimal[5,2]',
+        'libelle' => 'required|string|max_length[255]',
     ];
 
     public function getAll()
     {
-        return $this->findAll();
+        return $this->select('id, libelle AS name, libelle AS description')
+            ->orderBy('id', 'asc')
+            ->findAll();
     }
 
     public function getById($id)
     {
-        return $this->find($id);
+        return $this->select('id, libelle AS name, libelle AS description')
+            ->where('id', $id)
+            ->first();
     }
 
     public function createCategorie($data)

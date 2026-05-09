@@ -165,3 +165,202 @@ in SYSTEMPATH/Model.php on line 761.
  8 SYSTEMPATH/rewrite.php(44): require_once('/var/www/html/codeigniter/alimentation/public/index.php')
 INFO - 2026-05-09 06:14:15 --> CSRF token verified.
 DEBUG - 2026-05-09 06:14:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 07:48:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 07:48:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-09 07:48:43 --> CSRF token verified.
+DEBUG - 2026-05-09 07:48:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-09 07:48:54 --> CSRF token verified.
+DEBUG - 2026-05-09 07:48:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-05-09 07:48:54 --> Error connecting to the database: mysqli_sql_exception: No such file or directory in /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Validation/Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Validation/StrictRules/Rules.php(187): CodeIgniter\Validation\Rules->is_unique()
+#6 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Validation/Validation.php(345): CodeIgniter\Validation\StrictRules\Rules->is_unique()
+#7 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Validation/Validation.php(210): CodeIgniter\Validation\Validation->processRules()
+#8 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/BaseModel.php(1615): CodeIgniter\Validation\Validation->run()
+#9 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/BaseModel.php(868): CodeIgniter\BaseModel->validate()
+#10 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Model.php(668): CodeIgniter\BaseModel->insert()
+#11 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/BaseModel.php(752): CodeIgniter\Model->insert()
+#12 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/app/Models/UserModel.php(42): CodeIgniter\BaseModel->save()
+#13 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/app/Controllers/User.php(72): App\Models\UserModel->registerUser()
+#14 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/CodeIgniter.php(951): App\Controllers\User->put()
+#15 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#16 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#17 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#18 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#19 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#20 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No such file or directory in /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Validation/Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Validation/StrictRules/Rules.php(187): CodeIgniter\Validation\Rules->is_unique()
+#5 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Validation/Validation.php(345): CodeIgniter\Validation\StrictRules\Rules->is_unique()
+#6 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Validation/Validation.php(210): CodeIgniter\Validation\Validation->processRules()
+#7 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/BaseModel.php(1615): CodeIgniter\Validation\Validation->run()
+#8 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/BaseModel.php(868): CodeIgniter\BaseModel->validate()
+#9 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Model.php(668): CodeIgniter\BaseModel->insert()
+#10 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/BaseModel.php(752): CodeIgniter\Model->insert()
+#11 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/app/Models/UserModel.php(42): CodeIgniter\BaseModel->save()
+#12 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/app/Controllers/User.php(72): App\Models\UserModel->registerUser()
+#13 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/CodeIgniter.php(951): App\Controllers\User->put()
+#14 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#15 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#16 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#17 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#18 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#19 {main}
+CRITICAL - 2026-05-09 07:48:54 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No such file or directory
+[Method: POST, Route: user/put]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Validation/Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/Validation/StrictRules/Rules.php(187): CodeIgniter\Validation\Rules->is_unique()
+ 5 SYSTEMPATH/Validation/Validation.php(345): CodeIgniter\Validation\StrictRules\Rules->is_unique()
+ 6 SYSTEMPATH/Validation/Validation.php(210): CodeIgniter\Validation\Validation->processRules()
+ 7 SYSTEMPATH/BaseModel.php(1615): CodeIgniter\Validation\Validation->run()
+ 8 SYSTEMPATH/BaseModel.php(868): CodeIgniter\BaseModel->validate()
+ 9 SYSTEMPATH/Model.php(668): CodeIgniter\BaseModel->insert()
+10 SYSTEMPATH/BaseModel.php(752): CodeIgniter\Model->insert()
+11 APPPATH/Models/UserModel.php(42): CodeIgniter\BaseModel->save()
+12 APPPATH/Controllers/User.php(72): App\Models\UserModel->registerUser()
+13 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\User->put()
+14 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+15 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+16 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+17 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+18 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+DEBUG - 2026-05-09 08:27:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 08:27:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-09 08:27:26 --> CSRF token verified.
+DEBUG - 2026-05-09 08:27:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-05-09 08:27:26 --> Error connecting to the database: mysqli_sql_exception: No such file or directory in /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/app/Models/AdminModel.php(38): CodeIgniter\BaseModel->first()
+#7 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/app/Controllers/Admin.php(48): App\Models\AdminModel->authenticateCredentials()
+#8 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/CodeIgniter.php(951): App\Controllers\Admin->loginAdmin()
+#9 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No such file or directory in /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#5 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/app/Models/AdminModel.php(38): CodeIgniter\BaseModel->first()
+#6 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/app/Controllers/Admin.php(48): App\Models\AdminModel->authenticateCredentials()
+#7 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/CodeIgniter.php(951): App\Controllers\Admin->loginAdmin()
+#8 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+CRITICAL - 2026-05-09 08:27:26 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No such file or directory
+[Method: POST, Route: admin/login]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 5 APPPATH/Models/AdminModel.php(38): CodeIgniter\BaseModel->first()
+ 6 APPPATH/Controllers/Admin.php(48): App\Models\AdminModel->authenticateCredentials()
+ 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Admin->loginAdmin()
+ 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+DEBUG - 2026-05-09 08:41:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 08:42:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 08:42:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 08:43:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 08:50:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-09 08:50:53 --> CSRF token verified.
+DEBUG - 2026-05-09 08:50:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-05-09 08:50:53 --> Error connecting to the database: mysqli_sql_exception: No such file or directory in /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/app/Models/UserModel.php(27): CodeIgniter\BaseModel->first()
+#7 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/app/Controllers/User.php(27): App\Models\UserModel->authenticateCredentials()
+#8 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/CodeIgniter.php(951): App\Controllers\User->login()
+#9 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No such file or directory in /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#5 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/app/Models/UserModel.php(27): CodeIgniter\BaseModel->first()
+#6 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/app/Controllers/User.php(27): App\Models\UserModel->authenticateCredentials()
+#7 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/CodeIgniter.php(951): App\Controllers\User->login()
+#8 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/rindra/Documents/Mr_Rojo/Projet_S4/alimentation/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 {main}
+CRITICAL - 2026-05-09 08:50:53 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No such file or directory
+[Method: POST, Route: user/login]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 5 APPPATH/Models/UserModel.php(27): CodeIgniter\BaseModel->first()
+ 6 APPPATH/Controllers/User.php(27): App\Models\UserModel->authenticateCredentials()
+ 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\User->login()
+ 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+DEBUG - 2026-05-09 08:56:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 09:01:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 09:01:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 09:01:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 09:02:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 09:02:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 09:02:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 09:10:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 09:11:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 09:11:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 09:11:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 09:12:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 09:12:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-09 09:12:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

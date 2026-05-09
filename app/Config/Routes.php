@@ -11,11 +11,19 @@ use App\Controllers\EtudiantController;
 // $routes->get('/etudiant/(:num)','EtudiantController::show/$1');
 
 $routes->get('/', 'User::index');
+$routes->get('/user/login', 'User::loginPage');
 $routes->get('/redirectadmin', 'User::redirectadmin');
 $routes->post('/user/login', 'User::login');
 $routes->get('/user/redirectinscription', 'User::redirectinscription');
+$routes->get('/user/redirectinscriptiondetails', 'User::redirectinscriptiondetails');
 $routes->post('/user/inscription', 'User::page');
 $routes->post('/user/put', 'User::put');
+$routes->get('/accueil', 'User::accueil');
+$routes->get('/profil', 'User::profil');
+$routes->get('/objectifs', 'User::objectifs');
+$routes->get('/regimes', 'User::regimes');
+$routes->get('/paiement', 'User::paiement');
+$routes->get('/export-pdf', 'User::exportPdf');
 
 $routes->get('/admin/login', 'Admin::loginPage');
 $routes->post('/admin/login', 'Admin::loginAdmin');

@@ -5,6 +5,7 @@ use App\Models\UserModel;
 use App\Models\CategorieModel;
 use App\Models\GenreModel;
 use App\Models\RoleModel;
+use App\Models\RegimeModel;
 use App\Models\UserHealthProfileModel;
 use App\Models\UserObjectifModel;
 use App\Controllers\BaseController;
@@ -20,6 +21,7 @@ class User extends BaseController
     protected $roleModel;
     protected $healthProfileModel;
     protected $userObjectifModel;
+    protected $regimeModel;
 
     public function __construct(){
         $this->userModel = new UserModel();
@@ -28,6 +30,7 @@ class User extends BaseController
         $this->roleModel = new RoleModel();
         $this->healthProfileModel = new UserHealthProfileModel();
         $this->userObjectifModel = new UserObjectifModel();
+        $this->regimeModel = new regimeModel();
         $this->session = Services::session();
     }
 
@@ -56,7 +59,7 @@ class User extends BaseController
                 'isLoggedIn' => true,
                 'IMC' => $IMC,
             ]);
-            return redirect()->to('/objectif?objectif=' . $existingObjectif['id_objectif_type']);
+            return redirect()->to(site_url('/objectif?objectif=' . $existingObjectif['id_objectif_type']));
         }
 
             return view('login', ['error' => 'Objectif manquant pour ce compte.']);
@@ -168,7 +171,8 @@ class User extends BaseController
         $IMC = $this->userModel->calculeIMC((int) $taille, (int) $poids);
         $this->session->set('IMC', $IMC);
 
-        return redirect()->to('/objectif?objectif=' . (int) $objectifTypeId);
+        return redirect()->to(site_url('/objectif?objectif=' . (int) $objectifTypeId));
+        // $this->$regimeModel->getSuggestedRegimes($IMC, $objectifTypeId);
     } 
 
     // public function objectif(){
@@ -199,6 +203,20 @@ class User extends BaseController
 
     public function redirectadmin(){
         return view('adminlogin');
+    }
+
+    public function valeurportefeuille(){
+        $userId = (int) $this->session->get('user_id');
+        if (!$userId) {
+            return redirect()->to('/');
+        }
+
+        $user = $this->userModel->find($userId);
+        if (!$user) {
+            return redirect()->to('/');
+        }
+
+        return view('portefeuille', ['solde' => $user['solde_portefeuille']]);
     }
 
    

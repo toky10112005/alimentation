@@ -13,6 +13,8 @@
         <div class="container">
             <a class="navbar-brand" href="/">Gestion d'alimentation</a>
         </div>
+
+        <div><a href="/portefeuille" class="btn btn-primary">Consulter Portefeuille</a></div>
     </nav>
 
     <main class="container py-4">

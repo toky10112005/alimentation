@@ -33,12 +33,12 @@ INSERT INTO plats (nom, id_categorie, calories) VALUES
 ('Émincé de dinde au curry', 3, 230),
 ('Cuisse de poulet aux herbes', 3, 310);
 
-INSERT INTO regimes (nom, description, prix_journalier, poids_impact_semaine, pourcentage_viande, pourcentage_poisson, pourcentage_volaille) VALUES
-('Détox Océane', 'Régime léger basé sur les produits de la mer pour une perte rapide.', 15000, -1.2, 10, 60, 30),
-('Mass Gain Pro', 'Régime riche en calories et protéines pour la musculation.', 25000, 0.8, 50, 10, 40),
-('Volailles & Fibres', 'Équilibre parfait entre volaille et légumes pour stabiliser le poids.', 12000, -0.3, 0, 0, 100),
-('Mix Équilibré', 'Variété totale pour une santé optimale au quotidien.', 18000, 0.0, 33.33, 33.33, 33.34),
-('Bœuf & Énergie', 'Régime axé sur la force et l''apport en fer.', 22000, 0.5, 70, 10, 20);
+INSERT INTO regimes (nom, description, objectif_type_id, prix_journalier, poids_impact_semaine, pourcentage_viande, pourcentage_poisson, pourcentage_volaille) VALUES
+('Détox Océane', 'Régime léger basé sur les produits de la mer pour une perte rapide.', 1, 15000, -1.2, 10, 60, 30),
+('Mass Gain Pro', 'Régime riche en calories et protéines pour la musculation.', 2, 25000, 0.8, 50, 10, 40),
+('Volailles & Fibres', 'Équilibre parfait entre volaille et légumes pour stabiliser le poids.', 3, 12000, -0.3, 0, 0, 100),
+('Mix Équilibré', 'Variété totale pour une santé optimale au quotidien.', 1, 18000, 0.0, 33.33, 33.33, 33.34),
+('Bœuf & Énergie', 'Régime axé sur la force et l''apport en fer.', 2, 22000, 0.5, 70, 10, 20);
 
 -- Jour 1
 INSERT INTO regime_details (regime_id, plat_id, jour_numero, id_moment) VALUES 
@@ -60,3 +60,8 @@ INSERT INTO regime_activites (regime_id, activite_id, duree_minutes_jour) VALUES
 (3, 1, 30), -- Volailles & Fibres + Course à pied (30 min)
 (4, 3, 40), -- Mix Équilibré + Cyclisme (40 min)
 (5, 4, 30); -- Bœuf & Énergie + Musculation (30 min)
+
+INSERT INTO codes_recharge (code, valeur) VALUES 
+('bibity', 100.00),
+('caca', 200.00),
+('pipi', 500.00);

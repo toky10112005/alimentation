@@ -1,4 +1,4 @@
-DROP DATABASE regime_db;
+DROP DATABASE IF EXISTS regime_db;
 CREATE DATABASE IF NOT EXISTS regime_db;
 USE regime_db;
 
@@ -76,11 +76,13 @@ CREATE TABLE regimes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(100) NOT NULL,
     description TEXT,
+    objectif_type_id INT,
     prix_journalier DECIMAL(10, 2),
     poids_impact_semaine DECIMAL(4, 2),
     pourcentage_viande DECIMAL(5, 2),
     pourcentage_poisson DECIMAL(5, 2),
-    pourcentage_volaille DECIMAL(5, 2)
+    pourcentage_volaille DECIMAL(5, 2),
+    FOREIGN KEY (objectif_type_id) REFERENCES objectifs_types(id)
 );
 
 CREATE TABLE regime_details (
@@ -127,4 +129,17 @@ CREATE TABLE achats_regimes (
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (regime_id) REFERENCES regimes(id)
 );
+
+-- Seed objectif types (used by regimes.objectif_type_id)
+INSERT INTO objectifs_types (libelle) VALUES
+('Augmenter poids'),
+('Perdre poids'),
+('Atteindre IMC idéal');
+
+-- Sample regimes mapped to objectif_type_id
+INSERT INTO regimes (nom, description, objectif_type_id, prix_journalier, poids_impact_semaine, pourcentage_viande, pourcentage_poisson, pourcentage_volaille) VALUES
+('Régime Hypercalorique standard', 'Programme hypercalorique standard pour prise de masse', 1, 15.00, 5.0, 30.0, 40.0, 30.0),
+('Régime Hypercalorique riche en protéines', 'Prise de masse axée protéines', 1, 20.00, 7.0, 40.0, 30.0, 30.0),
+('Régime Hypocalorique standard', 'Programme hypocalorique standard pour perte de poids', 2, 20.00, -5.0, 20.0, 40.0, 40.0),
+('Régime Équilibré standard', 'Programme pour atteindre IMC idéal', 3, 18.00, 0.0, 25.0, 35.0, 40.0);
 

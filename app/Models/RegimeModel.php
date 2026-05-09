@@ -10,10 +10,11 @@ class RegimeModel extends Model
     protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
-    protected $allowedFields = ['nom', 'description', 'prix_journalier', 'poids_impact_semaine', 'pourcentage_viande', 'pourcentage_poisson', 'pourcentage_volaille'];
+    protected $allowedFields = ['nom', 'description', 'objectif_type_id', 'prix_journalier', 'poids_impact_semaine', 'pourcentage_viande', 'pourcentage_poisson', 'pourcentage_volaille'];
 
     protected $validationRules = [
         'nom' => 'required|string|max_length[255]',
+        'objectif_type_id' => 'permit_empty|integer',
         'prix_journalier' => 'required|decimal',
         'poids_impact_semaine' => 'required|decimal',
         'pourcentage_viande' => 'required|decimal',
@@ -41,7 +42,7 @@ class RegimeModel extends Model
         return $this->update($id, $data);
     }
 
-    public function getSuggestedRegimes(float $maintenance, string $objectifLabel): array
+    public function getSuggestedRegimes(float $maintenance, string $objectifLabel, ?int $objectifTypeId = null): array
     {
         $maintenance = (float) $maintenance;
 
@@ -61,6 +62,10 @@ class RegimeModel extends Model
             false
         );
 
+        if ($objectifTypeId !== null && $objectifTypeId > 0) {
+            $builder->where('regimes.objectif_type_id', $objectifTypeId);
+        }
+
         if (stripos($objectifLabel, 'reduire') !== false) {
             $builder->having('balance <', 0, false);
         } elseif (stripos($objectifLabel, 'augmenter') !== false) {
@@ -69,6 +74,14 @@ class RegimeModel extends Model
             $builder->orderBy('ABS(balance)', 'asc', false);
         }
 
-        return $builder->findAll();
+        $results = $builder->findAll();
+
+        // Fallback: if no regimes found (e.g. no regime_details or activites defined),
+        // return regimes that match the objectif_type_id when provided.
+        if ((empty($results) || count($results) === 0) && $objectifTypeId !== null && $objectifTypeId > 0) {
+            return $this->where('objectif_type_id', $objectifTypeId)->findAll();
+        }
+
+        return $results;
     }
 }

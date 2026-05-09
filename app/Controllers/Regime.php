@@ -49,46 +49,56 @@ class Regime extends BaseController
     $user = $this->userModel->find($userId);
     $objectif = $this->objectifTypeModel->find($objectifId);
 
-    if (!$profile || !$user || !$objectif) {
+    // If the objectif itself doesn't exist, nothing to show
+    if (!$objectif) {
         return view('regime', ['regimes' => []]);
     }
 
-    $genre = $this->genreModel->find((int) $user['id_genre']);
-    $genreLabel = $genre ? $genre['libelle'] : 'Femme';
+    // Determine genre label if user exists
+    $genreLabel = 'Femme';
+    if ($user && isset($user['id_genre'])) {
+        $genre = $this->genreModel->find((int) $user['id_genre']);
+        $genreLabel = $genre ? $genre['libelle'] : $genreLabel;
+    }
 
-    $age = 25;
-    $mb = $this->userModel->calculeMB(
-        (float) $profile['poids_actuel'],
-        (float) $profile['taille'],
-        $age,
-        $genreLabel
-    );
-    $maintenance = $this->userModel->calculeMaintenance($mb);
+    // Compute maintenance only if a health profile exists
+    $maintenance = 0.0;
+    if ($profile && isset($profile['poids_actuel'], $profile['taille'])) {
+        $age = 25;
+        $mb = $this->userModel->calculeMB(
+            (float) $profile['poids_actuel'],
+            (float) $profile['taille'],
+            $age,
+            $genreLabel
+        );
+        $maintenance = $this->userModel->calculeMaintenance($mb);
+    }
 
-    $regimes = $this->regimeModel->getSuggestedRegimes($maintenance, $objectif['libelle']);
+    $regimes = $this->regimeModel->getSuggestedRegimes($maintenance, $objectif['libelle'], $objectifId);
     $objectifUser = $this->userObjectifModel->getByUserId($userId);
 
-    if ($profile && $objectifUser) {
-        $poidsActuel = (float) $profile['poids_actuel'];
-        $poidsCible = (float) $objectifUser['poids_cible'];
+    $poidsActuel = isset($profile['poids_actuel']) ? (float) $profile['poids_actuel'] : null;
+    $poidsCible = ($objectifUser && isset($objectifUser['poids_cible'])) ? (float) $objectifUser['poids_cible'] : null;
 
-        $regimes = array_map(function ($regime) use ($poidsActuel, $poidsCible) {
-            $impactSemaine = (float) $regime['poids_impact_semaine'];
-            $dureeJours = 0;
-            if ($impactSemaine != 0.0) {
-                $dureeJours = (int) round((abs($poidsCible - $poidsActuel) / abs($impactSemaine)) * 7);
-            }
+    // Always enrich regimes list; compute duration only when poids cible is available
+    $regimes = array_map(function ($regime) use ($poidsActuel, $poidsCible, $objectifId) {
+        $impactSemaine = isset($regime['poids_impact_semaine']) ? (float) $regime['poids_impact_semaine'] : 0.0;
+        $dureeJours = 0;
 
-            $regime['name'] = $regime['nom'];
-            $regime['poids_minimal_impact'] = $regime['poids_impact_semaine'];
-            $regime['duree_jours'] = $dureeJours;
-            $regime['prix_total'] = $dureeJours > 0
-                ? ((float) $regime['prix_journalier'] * $dureeJours)
-                : (float) $regime['prix_journalier'];
+        if ($poidsActuel !== null && $poidsCible !== null && $impactSemaine != 0.0) {
+            $dureeJours = (int) round((abs($poidsCible - $poidsActuel) / abs($impactSemaine)) * 7);
+        }
 
-            return $regime;
-        }, $regimes);
-    }
+        $regime['name'] = $regime['nom'];
+        $regime['objectif_type_id'] = isset($regime['objectif_type_id']) ? (int) $regime['objectif_type_id'] : $objectifId;
+        $regime['poids_minimal_impact'] = $impactSemaine;
+        $regime['duree_jours'] = $dureeJours;
+        $regime['prix_total'] = $dureeJours > 0
+            ? ((float) ($regime['prix_journalier'] ?? 0) * $dureeJours)
+            : (float) ($regime['prix_journalier'] ?? 0);
+
+        return $regime;
+    }, $regimes ?: []);
 
     return view('regime', ['regimes' => $regimes]);
    }

@@ -59,6 +59,17 @@
                                 </div>
                             </dl>
 
+                            <?php if (!empty($regime['activites'])): ?>
+                                <div class="mb-3">
+                                    <div class="text-muted small mb-2">Activites conseillees</div>
+                                    <ul class="list-unstyled small mb-0">
+                                        <?php foreach ($regime['activites'] as $act): ?>
+                                            <li><?= esc($act['name']) ?> • <?= esc($act['duree_minutes_jour']) ?> min/jour</li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            <?php endif; ?>
+
                             <div class="mt-auto">
                                 <?php if (!empty($regime['is_bought'])): ?>
                                     <button class="btn btn-outline-success w-100" disabled>Régime déjà acheté</button>

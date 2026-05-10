@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Models\RegimeModel;
 use App\Models\UserModel;
 use App\Models\GenreModel;
+use App\Models\ActiviteModel;
 use App\Models\AchatRegimeModel;
 use App\Models\UserHealthProfileModel;
 use App\Models\UserObjectifModel;
@@ -24,6 +25,7 @@ class Regime extends BaseController
     protected $objectifTypeModel;
     protected $achatRegimeModel;
     protected $goldModel;
+    protected $activiteModel;
 
      public function __construct(){
         $this->regimeModel = new RegimeModel();
@@ -34,6 +36,7 @@ class Regime extends BaseController
         $this->objectifTypeModel = new ObjectifTypeModel();
         $this->achatRegimeModel = new AchatRegimeModel();
         $this->goldModel = new GoldModel();
+        $this->activiteModel = new ActiviteModel();
         $this->session = Services::session();
     }
 
@@ -90,6 +93,60 @@ class Regime extends BaseController
 
             return $regime;
         }, $regimes ?: []);
+    }
+
+    private function buildSuggestionContext(int $userId): array
+    {
+        $objectifUser = $this->userObjectifModel->getByUserId($userId);
+        $objectifId = $objectifUser ? (int) $objectifUser['id_objectif_type'] : (int) $this->session->get('objectif');
+
+        $objectifLabel = '';
+        if ($objectifId > 0) {
+            $objectif = $this->objectifTypeModel->find($objectifId);
+            if ($objectif && isset($objectif['libelle'])) {
+                $objectifLabel = (string) $objectif['libelle'];
+            }
+        }
+
+        $profile = $this->healthProfileModel->getLatestForUser($userId);
+        $poidsActuel = $profile && isset($profile['poids_actuel']) ? (float) $profile['poids_actuel'] : null;
+        $poidsCible = $objectifUser && isset($objectifUser['poids_cible']) ? (float) $objectifUser['poids_cible'] : null;
+
+        $maintenance = 0.0;
+        if ($profile && isset($profile['poids_actuel'], $profile['taille'])) {
+            $user = $this->userModel->find($userId);
+            $genreLabel = 'Femme';
+            if ($user && isset($user['id_genre'])) {
+                $genre = $this->genreModel->find((int) $user['id_genre']);
+                $genreLabel = $genre ? $genre['libelle'] : $genreLabel;
+            }
+
+            $age = 25;
+            $mb = $this->userModel->calculeMB(
+                (float) $profile['poids_actuel'],
+                (float) $profile['taille'],
+                $age,
+                $genreLabel
+            );
+            $maintenance = $this->userModel->calculeMaintenance($mb);
+        }
+
+        return [
+            'maintenance' => $maintenance,
+            'objectifLabel' => $objectifLabel,
+            'objectifId' => $objectifId,
+            'poidsActuel' => $poidsActuel,
+            'poidsCible' => $poidsCible,
+        ];
+    }
+
+    private function attachActivities(array $regimes): array
+    {
+        foreach ($regimes as $index => $regime) {
+            $regimes[$index]['activites'] = $this->activiteModel->getByRegimeId((int) $regime['id']);
+        }
+
+        return $regimes;
     }
 
      public function index(){
@@ -155,6 +212,8 @@ class Regime extends BaseController
 
     $regimes = $this->formatRegimesForView($regimes, $poidsActuel, $poidsCible, $objectifId, $boughtRegimeIds);
 
+    $regimes = $this->attachActivities($regimes);
+
     return view('regime', ['regimes' => $regimes]);
    }
 
@@ -191,29 +250,47 @@ class Regime extends BaseController
 
     $prixTotal = $this->applyGoldDiscount($prixTotal, (int) ($user['is_gold'] ?? 0) === 1, $remisePercentage);
 
+    $context = $this->buildSuggestionContext($userId);
+
      if (in_array($regimeId, $boughtRegimeIds, true)) {
+        $regimes = $this->regimeModel->getSuggestedRegimes(
+            $context['maintenance'],
+            $context['objectifLabel'],
+            $context['objectifId']
+        );
+        $regimes = $this->formatRegimesForView(
+            $regimes,
+            $context['poidsActuel'],
+            $context['poidsCible'],
+            $context['objectifId'],
+            $boughtRegimeIds
+        );
+        $regimes = $this->attachActivities($regimes);
+
         return view('regime', [
             'error' => 'Vous avez déjà acheté ce régime.',
-            'regimes' => $this->formatRegimesForView(
-                $this->regimeModel->getSuggestedRegimes(0, '', 0),
-                null,
-                null,
-                0,
-                $boughtRegimeIds
-            ),
+            'regimes' => $regimes,
         ]);
     }
 
     if ((float) $user['solde_portefeuille'] < $prixTotal) {
+        $regimes = $this->regimeModel->getSuggestedRegimes(
+            $context['maintenance'],
+            $context['objectifLabel'],
+            $context['objectifId']
+        );
+        $regimes = $this->formatRegimesForView(
+            $regimes,
+            $context['poidsActuel'],
+            $context['poidsCible'],
+            $context['objectifId'],
+            $boughtRegimeIds
+        );
+        $regimes = $this->attachActivities($regimes);
+
         return view('regime', [
             'error' => 'Solde insuffisant pour acheter ce régime.',
-            'regimes' => $this->formatRegimesForView(
-                $this->regimeModel->getSuggestedRegimes(0, '', 0),
-                null,
-                null,
-                0,
-                $boughtRegimeIds
-            ),
+            'regimes' => $regimes,
         ]);
     }
 

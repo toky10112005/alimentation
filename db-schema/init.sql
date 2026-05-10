@@ -130,11 +130,23 @@ CREATE TABLE achats_regimes (
     FOREIGN KEY (regime_id) REFERENCES regimes(id)
 );
 
--- Seed objectif types (used by regimes.objectif_type_id)
-INSERT INTO objectifs_types (libelle) VALUES
-('Augmenter poids'),
-('Perdre poids'),
-('Atteindre IMC idéal');
+CREATE TABLE gold(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    prix DECIMAL(10, 2) NOT NULL,
+    description TEXT,
+    remise DECIMAL(5, 2) NOT NULL DEFAULT 15.00
+);
+
+CREATE TABLE achats_gold (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    gold_id INT,
+    date_achat DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (gold_id) REFERENCES gold(id)
+);
+
+
 
 -- Sample regimes mapped to objectif_type_id
 INSERT INTO regimes (nom, description, objectif_type_id, prix_journalier, poids_impact_semaine, pourcentage_viande, pourcentage_poisson, pourcentage_volaille) VALUES

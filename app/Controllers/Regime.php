@@ -149,6 +149,29 @@ class Regime extends BaseController
         return $regimes;
     }
 
+    private function groupPlatsByJour(array $plats): array
+    {
+        $grouped = [];
+
+        foreach ($plats as $row) {
+            $jour = (int) ($row['jour_numero'] ?? 0);
+            $moment = (string) ($row['moment'] ?? '');
+
+            if (!isset($grouped[$jour])) {
+                $grouped[$jour] = [];
+            }
+            if (!isset($grouped[$jour][$moment])) {
+                $grouped[$jour][$moment] = [];
+            }
+
+            $grouped[$jour][$moment][] = $row;
+        }
+
+        ksort($grouped);
+
+        return $grouped;
+    }
+
      public function index(){
         return view('regime');
     }
@@ -310,6 +333,24 @@ class Regime extends BaseController
     // return redirect()->to('/portefeuille');
     return view('portefeuille', ['success' => 'Régime acheté avec succès ! Votre solde a été mis à jour.', 'solde' => $nouveauSolde]);  
 
+   }
+
+   public function mesRegimes()
+   {
+        $userId = (int) $this->session->get('user_id');
+
+        if (!$userId) {
+            return redirect()->to('/');
+        }
+
+        $regimes = $this->regimeModel->getBoughtRegimesByUser($userId);
+
+        foreach ($regimes as $index => $regime) {
+            $plats = $this->regimeModel->getRegimePlats((int) $regime['id']);
+            $regimes[$index]['plats_par_jour'] = $this->groupPlatsByJour($plats);
+        }
+
+        return view('mes_regimes', ['regimes' => $regimes]);
    }
 
 

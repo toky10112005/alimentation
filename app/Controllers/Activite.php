@@ -25,10 +25,31 @@ class Activite extends BaseController
         $this->session = Services::session();
     }
 
+    private function getDemoDetail(): array
+    {
+        return [
+            'regime' => [
+                'name' => 'Perte progressive',
+                'poids_minimal_impact' => 0.7,
+                'duree_jours' => 56,
+                'prix_total' => 120400,
+                'p_viande' => 30,
+                'p_volaille' => 20,
+                'p_poisson' => 25,
+            ],
+            'activite' => [
+                ['name' => 'Course', 'duree' => '30 min/jour'],
+                ['name' => 'Natation', 'duree' => '25 min/jour'],
+                ['name' => 'Velo', 'duree' => '35 min/jour'],
+            ],
+        ];
+    }
+
      public function details($id){
         $regime = $this->regimeModel->getById($id);
         if (!$regime) {
-            return view('details', ['error' => 'id non trouvé']);
+            $demo = $this->getDemoDetail();
+            return view('details', $demo);
         }
 
         $userId = (int) $this->session->get('user_id');
@@ -61,6 +82,11 @@ class Activite extends BaseController
             $row['duree'] = $row['duree_minutes_jour'] . ' min/jour';
             return $row;
         }, $activite);
+
+        if (empty($activite)) {
+            $demo = $this->getDemoDetail();
+            return view('details', $demo + ['regime' => $regime]);
+        }
 
         return view('details', ['activite' => $activite, 'regime' => $regime]);
     }

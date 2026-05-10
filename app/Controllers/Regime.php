@@ -34,13 +34,55 @@ class Regime extends BaseController
      public function index(){
         return view('regime');
     }
+
+    private function getDemoRegimes(): array
+    {
+        return [
+            [
+                'id' => 1,
+                'name' => 'Perte progressive',
+                'poids_minimal_impact' => 0.7,
+                'duree_jours' => 56,
+                'prix_journalier' => 2150,
+                'prix_total' => 120400,
+                'variation' => '-5 kg',
+                'pourcentage_viande' => 30,
+                'pourcentage_poisson' => 25,
+                'pourcentage_volaille' => 20,
+            ],
+            [
+                'id' => 2,
+                'name' => 'Prise de masse douce',
+                'poids_minimal_impact' => 0.5,
+                'duree_jours' => 70,
+                'prix_journalier' => 2100,
+                'prix_total' => 147000,
+                'variation' => '+4 kg',
+                'pourcentage_viande' => 35,
+                'pourcentage_poisson' => 15,
+                'pourcentage_volaille' => 25,
+            ],
+            [
+                'id' => 3,
+                'name' => 'IMC ideal',
+                'poids_minimal_impact' => 0.0,
+                'duree_jours' => 42,
+                'prix_journalier' => 2380,
+                'prix_total' => 99960,
+                'variation' => 'Stable',
+                'pourcentage_viande' => 25,
+                'pourcentage_poisson' => 25,
+                'pourcentage_volaille' => 25,
+            ],
+        ];
+    }
     
    public function objectif(){
     $objectifId = (int) $this->request->getGet('objectif');
     $userId = (int) $this->session->get('user_id');
 
     if (!$userId) {
-        return redirect()->to('/');
+        return view('regime', ['regimes' => $this->getDemoRegimes()]);
     }
 
     $this->session->set('objectif', $objectifId);
@@ -50,7 +92,7 @@ class Regime extends BaseController
     $objectif = $this->objectifTypeModel->find($objectifId);
 
     if (!$profile || !$user || !$objectif) {
-        return view('regime', ['regimes' => []]);
+        return view('regime', ['regimes' => $this->getDemoRegimes()]);
     }
 
     $genre = $this->genreModel->find((int) $user['id_genre']);

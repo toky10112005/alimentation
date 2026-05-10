@@ -1,91 +1,163 @@
 :root {
-  --food-primary: #2e7d32;
-  --food-primary-dark: #1b5e20;
-  --food-primary-light: #4caf50;
-  --food-secondary: #81c784;
-  --food-accent: #ff9800;
-  --food-background: #f1f8e9;
-  --food-card-bg: #ffffff;
+  --brand-900: #1f2937;
+  --brand-700: #334155;
+  --brand-500: #64748b;
+  --brand-300: #cbd5e1;
+  --brand-100: #f1f5f9;
+  --accent-600: #3b7c5a;
+  --accent-500: #4f8f6a;
+  --accent-100: #e7f3ed;
+  --surface: #ffffff;
+  --surface-muted: #f7f6f3;
+  --shadow-soft: 0 12px 30px rgba(15, 23, 42, 0.08);
+  --shadow-card: 0 8px 24px rgba(15, 23, 42, 0.08);
 }
 
 body {
-  background-color: var(--food-background);
-  color: #212529;
+  background-color: var(--surface-muted);
+  color: var(--brand-900);
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 
-.navbar-dark.bg-dark {
-  background: linear-gradient(135deg, var(--food-primary-dark), var(--food-primary)) !important;
+a {
+  color: var(--accent-600);
+}
+
+a:hover {
+  color: var(--accent-500);
+}
+
+.page-shell {
+  background: radial-gradient(circle at top, #ffffff 0%, #f2f5f3 45%, #eef2f4 100%);
+  min-height: 100vh;
+}
+
+.navbar {
+  backdrop-filter: blur(6px);
 }
 
 .navbar-brand {
-  font-weight: 600;
-  letter-spacing: -0.5px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: var(--brand-900);
+}
+
+.navbar-brand span {
+  color: var(--accent-600);
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: var(--accent-100);
+  color: var(--accent-600);
+}
+
+.hero-card {
+  background: var(--surface);
+  border: 1px solid rgba(203, 213, 225, 0.7);
+  box-shadow: var(--shadow-soft);
 }
 
 .card {
-  border: 1px solid var(--food-secondary);
-  box-shadow: 0 2px 8px rgba(46, 125, 50, 0.1);
+  border: 1px solid rgba(203, 213, 225, 0.7);
+  box-shadow: var(--shadow-card);
 }
 
 .card-header {
-  background-color: var(--food-secondary);
-  color: #fff;
+  background-color: var(--brand-100);
+  color: var(--brand-900);
   border-bottom: none;
 }
 
+.section-title {
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
+
+.subtitle {
+  color: var(--brand-500);
+}
+
 .btn-primary {
-  background: linear-gradient(135deg, var(--food-primary), var(--food-primary-light));
-  border-color: var(--food-primary);
+  background-color: var(--accent-600);
+  border-color: var(--accent-600);
+  box-shadow: 0 10px 18px rgba(59, 124, 90, 0.2);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, var(--food-primary-dark), var(--food-primary));
-  border-color: var(--food-primary-dark);
+  background-color: #2f6b4c;
+  border-color: #2f6b4c;
 }
 
-.btn-outline-primary {
-  color: var(--food-primary);
-  border-color: var(--food-primary);
+.btn-outline-secondary {
+  border-color: var(--brand-300);
+  color: var(--brand-700);
 }
 
-.btn-outline-primary:hover {
-  background-color: var(--food-primary);
-  border-color: var(--food-primary);
+.btn-outline-secondary:hover {
+  background-color: var(--brand-100);
+  border-color: var(--brand-300);
+  color: var(--brand-900);
+}
+
+.badge-soft {
+  background: var(--accent-100);
+  color: var(--accent-600);
+}
+
+.form-control,
+.form-select {
+  border-radius: 12px;
+  border-color: var(--brand-300);
 }
 
 .form-control:focus,
 .form-select:focus {
-  border-color: var(--food-primary);
-  box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25);
+  border-color: var(--accent-500);
+  box-shadow: 0 0 0 0.2rem rgba(79, 143, 106, 0.2);
 }
 
 .objectif-card {
   transition: all 0.2s ease;
   cursor: pointer;
-  border: 2px solid transparent;
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  background: var(--surface);
 }
 
 .objectif-card:hover {
-  border-color: var(--food-secondary);
-  background-color: #e8f5e9;
+  border-color: rgba(79, 143, 106, 0.6);
+  background-color: #f6faf8;
   transform: translateY(-2px);
 }
 
 .objectif-card input[type="radio"]:checked + .form-check-label {
-  color: var(--food-primary-dark);
+  color: var(--accent-600);
   font-weight: 600;
 }
 
 .objectif-card input[type="radio"] {
-  accent-color: var(--food-primary);
+  accent-color: var(--accent-600);
 }
 
-.alert-success {
-  background-color: #e8f5e9;
-  border-color: var(--food-primary-light);
-  color: var(--food-primary-dark);
+.auth-card {
+  border-radius: 18px;
+}
+
+.stat-chip {
+  border-radius: 999px;
+  padding: 6px 14px;
+  border: 1px solid var(--brand-300);
+  background: var(--surface);
+  color: var(--brand-700);
+  font-weight: 600;
+  font-size: 0.85rem;
 }
 
 .rounded-3 {
-  border-radius: 0.5rem !important;
+  border-radius: 0.9rem !important;
 }

@@ -201,5 +201,131 @@ class User extends BaseController
         return view('adminlogin');
     }
 
+    public function accueil(){
+        $cards = [
+            ['title' => 'Profil', 'desc' => 'Consulter et completer les informations personnelles.', 'link' => '/profil'],
+            ['title' => 'Objectifs', 'desc' => 'Choisir entre prise, perte ou IMC ideal.', 'link' => '/objectifs'],
+            ['title' => 'Regimes', 'desc' => 'Voir les regimes proposes et leurs tarifs.', 'link' => '/regimes'],
+            ['title' => 'Activites', 'desc' => 'Explorer les sports conseilles selon le programme.', 'link' => '/activites'],
+            ['title' => 'Paiement', 'desc' => 'Simuler le wallet et l option Gold.', 'link' => '/paiement'],
+            ['title' => 'Export PDF', 'desc' => 'Telecharger le recapitulatif du programme.', 'link' => '/export-pdf'],
+        ];
+
+        return view('accueil', [
+            'username' => $this->session->get('username') ?? 'Utilisateur test',
+            'IMC' => $this->session->get('IMC') ?? 22.8,
+            'cards' => $cards,
+        ]);
+    }
+
+    public function profil(){
+        $user = [
+            'nom' => $this->session->get('username') ?? 'Rakoto',
+            'email' => 'test@gmail.com',
+            'genre' => 'Homme',
+            'telephone' => '034 12 345 67',
+            'taille' => '170 cm',
+            'poids' => '70 kg',
+            'objectif' => 'Reduire son poids',
+        ];
+
+        return view('profil', ['user' => $user]);
+    }
+
+    public function objectifs(){
+        $objectifs = [
+            [
+                'title' => 'Augmenter son poids',
+                'text' => 'Programme plus calorique avec des repas riches et reguliers.',
+                'badge' => 'Volume',
+            ],
+            [
+                'title' => 'Reduire son poids',
+                'text' => 'Programme leger avec deficit calorique et cardio.',
+                'badge' => 'Sante',
+            ],
+            [
+                'title' => 'Atteindre un IMC ideal',
+                'text' => 'Programme progressif pour stabiliser le poids.',
+                'badge' => 'Equilibre',
+            ],
+        ];
+
+        return view('objectifs', ['objectifs' => $objectifs]);
+    }
+
+    public function regimes(){
+        $regimes = [
+            [
+                'nom' => 'Perte progressive',
+                'description' => 'Perdre 5 kg en 2 mois avec un rythme sain.',
+                'duree' => '8 semaines',
+                'prix' => '120 000 Ar',
+                'variation' => '-5 kg',
+                'viande' => 30,
+                'poisson' => 25,
+                'volaille' => 20,
+            ],
+            [
+                'nom' => 'Prise de masse douce',
+                'description' => 'Gagner du poids avec une alimentation plus dense.',
+                'duree' => '10 semaines',
+                'prix' => '145 000 Ar',
+                'variation' => '+4 kg',
+                'viande' => 35,
+                'poisson' => 15,
+                'volaille' => 25,
+            ],
+            [
+                'nom' => 'IMC ideal',
+                'description' => 'Conserver une bonne zone IMC et un rythme stable.',
+                'duree' => '6 semaines',
+                'prix' => '100 000 Ar',
+                'variation' => 'Stable',
+                'viande' => 25,
+                'poisson' => 25,
+                'volaille' => 25,
+            ],
+        ];
+
+        return view('regimes', ['regimes' => $regimes]);
+    }
+
+    public function activites(){
+        $activites = [
+            ['nom' => 'Course', 'desc' => 'Cardio, endurance et perte de calories.', 'intensite' => 'Moyenne'],
+            ['nom' => 'Natation', 'desc' => 'Travail complet du corps, doux pour les articulations.', 'intensite' => 'Moderee'],
+            ['nom' => 'Velo', 'desc' => 'Activite progressive pour bruler des calories.', 'intensite' => 'Moyenne'],
+            ['nom' => 'Musculation', 'desc' => 'Renforcement et prise de masse musculaire.', 'intensite' => 'Elevee'],
+        ];
+
+        return view('activites', ['activites' => $activites]);
+    }
+
+    public function paiement(){
+        $summary = [
+            'regime' => 'Perte progressive',
+            'price' => '120 000 Ar',
+            'gold' => '18 000 Ar',
+            'total' => '102 000 Ar',
+            'wallet' => '65 000 Ar',
+        ];
+
+        return view('paiement', ['summary' => $summary]);
+    }
+
+    public function exportPdf(){
+        $recap = [
+            'nom' => $this->session->get('username') ?? 'Rakoto',
+            'objectif' => 'Reduire son poids',
+            'regime' => 'Perte progressive',
+            'activites' => 'Course, natation, velo',
+            'duree' => '8 semaines',
+            'prix' => '120 000 Ar',
+        ];
+
+        return view('exportpdf', ['recap' => $recap]);
+    }
+
    
 }

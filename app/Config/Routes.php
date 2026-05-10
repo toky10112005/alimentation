@@ -11,6 +11,13 @@ use App\Controllers\EtudiantController;
 // $routes->get('/etudiant/(:num)','EtudiantController::show/$1');
 
 $routes->get('/', 'User::index');
+$routes->get('/accueil', 'User::accueil');
+$routes->get('/profil', 'User::profil');
+$routes->get('/objectifs', 'User::objectifs');
+$routes->get('/regimes', 'User::regimes');
+$routes->get('/activites', 'User::activites');
+$routes->get('/paiement', 'User::paiement');
+$routes->get('/export-pdf', 'User::exportPdf');
 $routes->get('/redirectadmin', 'User::redirectadmin');
 $routes->post('/user/login', 'User::login');
 $routes->get('/user/redirectinscription', 'User::redirectinscription');

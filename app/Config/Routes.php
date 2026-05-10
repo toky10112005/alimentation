@@ -10,7 +10,8 @@ use App\Controllers\EtudiantController;
 // $routes->get('/', 'EtudiantController::index');
 // $routes->get('/etudiant/(:num)','EtudiantController::show/$1');
 
-$routes->get('/', 'User::index');
+$routes->get('/home', 'User::home');
+$routes->get('/', 'User::home');
 $routes->get('/accueil', 'User::accueil');
 $routes->get('/profil', 'User::profil');
 $routes->get('/objectifs', 'User::objectifs');

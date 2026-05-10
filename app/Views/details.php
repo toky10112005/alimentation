@@ -6,7 +6,7 @@
     <title>Details du regime • Gestion d'alimentation</title>
 
     <link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/theme.css" rel="stylesheet">
+    <link href="/assets/css/theme.css?v=5" rel="stylesheet">
 </head>
 <body class="page-shell">
     <nav class="navbar navbar-expand-lg bg-white border-bottom">

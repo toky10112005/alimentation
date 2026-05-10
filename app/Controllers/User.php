@@ -31,6 +31,10 @@ class User extends BaseController
         $this->session = Services::session();
     }
 
+    public function home(){
+        return view('home');
+    }
+
     public function index(){
         return view('login');
     }
@@ -203,12 +207,12 @@ class User extends BaseController
 
     public function accueil(){
         $cards = [
-            ['title' => 'Profil', 'desc' => 'Consulter et completer les informations personnelles.', 'link' => '/profil'],
-            ['title' => 'Objectifs', 'desc' => 'Choisir entre prise, perte ou IMC ideal.', 'link' => '/objectifs'],
-            ['title' => 'Regimes', 'desc' => 'Voir les regimes proposes et leurs tarifs.', 'link' => '/regimes'],
-            ['title' => 'Activites', 'desc' => 'Explorer les sports conseilles selon le programme.', 'link' => '/activites'],
-            ['title' => 'Paiement', 'desc' => 'Simuler le wallet et l option Gold.', 'link' => '/paiement'],
-            ['title' => 'Export PDF', 'desc' => 'Telecharger le recapitulatif du programme.', 'link' => '/export-pdf'],
+            ['title' => 'Profil', 'desc' => 'Consulter et completer les informations personnelles.', 'link' => '/profil', 'icon' => '👤'],
+            ['title' => 'Objectifs', 'desc' => 'Choisir entre prise, perte ou IMC ideal.', 'link' => '/objectifs', 'icon' => '🎯'],
+            ['title' => 'Regimes', 'desc' => 'Voir les regimes proposes et leurs tarifs.', 'link' => '/regimes', 'icon' => '🍽️'],
+            ['title' => 'Activites', 'desc' => 'Explorer les sports conseilles selon le programme.', 'link' => '/activites', 'icon' => '🏃'],
+            ['title' => 'Paiement', 'desc' => 'Simuler le wallet et l option Gold.', 'link' => '/paiement', 'icon' => '💳'],
+            ['title' => 'Export PDF', 'desc' => 'Telecharger le recapitulatif du programme.', 'link' => '/export-pdf', 'icon' => '📄'],
         ];
 
         return view('accueil', [
@@ -293,10 +297,10 @@ class User extends BaseController
 
     public function activites(){
         $activites = [
-            ['nom' => 'Course', 'desc' => 'Cardio, endurance et perte de calories.', 'intensite' => 'Moyenne'],
-            ['nom' => 'Natation', 'desc' => 'Travail complet du corps, doux pour les articulations.', 'intensite' => 'Moderee'],
-            ['nom' => 'Velo', 'desc' => 'Activite progressive pour bruler des calories.', 'intensite' => 'Moyenne'],
-            ['nom' => 'Musculation', 'desc' => 'Renforcement et prise de masse musculaire.', 'intensite' => 'Elevee'],
+            ['nom' => 'Course', 'desc' => 'Cardio, endurance et perte de calories.', 'intensite' => 'Moyenne', 'icon' => '🏃‍♂️'],
+            ['nom' => 'Natation', 'desc' => 'Travail complet du corps, doux pour les articulations.', 'intensite' => 'Moderee', 'icon' => '🏊‍♀️'],
+            ['nom' => 'Velo', 'desc' => 'Activite progressive pour bruler des calories.', 'intensite' => 'Moyenne', 'icon' => '🚴‍♂️'],
+            ['nom' => 'Musculation', 'desc' => 'Renforcement et prise de masse musculaire.', 'intensite' => 'Elevee', 'icon' => '💪'],
         ];
 
         return view('activites', ['activites' => $activites]);

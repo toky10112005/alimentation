@@ -13,8 +13,11 @@
         <div class="container">
             <a class="navbar-brand" href="/">Gestion d'alimentation</a>
         </div>
-        <div><a href="/acheterGold" class="btn btn-outline-light">Acheter Offre Gold</a></div>
-        <div><a href="/portefeuille" class="btn btn-primary">Consulter Portefeuille</a></div>
+        <div class="d-flex gap-2">
+            <a href="/mes-regimes" class="btn btn-outline-light">Mes regimes</a>
+            <a href="/acheterGold" class="btn btn-outline-light">Acheter Offre Gold</a>
+            <a href="/portefeuille" class="btn btn-primary">Consulter Portefeuille</a>
+        </div>
     </nav>
 
     <main class="container py-4">

@@ -66,9 +66,25 @@ class RegimeModel extends Model
             $builder->where('regimes.objectif_type_id', $objectifTypeId);
         }
 
-        if (stripos($objectifLabel, 'reduire') !== false) {
+        $filterMode = null;
+        if ($objectifTypeId === 2) {
+            $filterMode = 'reduire';
+        } elseif ($objectifTypeId === 1) {
+            $filterMode = 'augmenter';
+        } else {
+            $label = $objectifLabel;
+            $normalized = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $label);
+            $normalized = strtolower($normalized ?: $label);
+            if (strpos($normalized, 'reduire') !== false) {
+                $filterMode = 'reduire';
+            } elseif (strpos($normalized, 'augmenter') !== false) {
+                $filterMode = 'augmenter';
+            }
+        }
+
+        if ($filterMode === 'reduire') {
             $builder->having('balance <', 0, false);
-        } elseif (stripos($objectifLabel, 'augmenter') !== false) {
+        } elseif ($filterMode === 'augmenter') {
             $builder->having('balance >', 0, false);
         } else {
             $builder->orderBy('ABS(balance)', 'asc', false);

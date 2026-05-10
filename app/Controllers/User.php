@@ -219,5 +219,19 @@ class User extends BaseController
         return view('portefeuille', ['solde' => $user['solde_portefeuille']]);
     }
 
+    // public function Gold(){ 
+    //     $userId = (int) $this->session->get('user_id');
+    //     if (!$userId) {
+    //         return redirect()->to('/');
+    //     }
+
+    //     $user = $this->userModel->find($userId);
+    //     if (!$user) {
+    //         return redirect()->to('/');
+    //     }
+
+    //     return view('gold', ['solde' => $user['solde_portefeuille']]);
+    // }
+
    
 }

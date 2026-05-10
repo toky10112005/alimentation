@@ -21,24 +21,54 @@ class CodeRecharge extends BaseController
     }
 
      public function valideCode(){
-        $code = $this->request->getPost('code');
+        $code = trim((string) $this->request->getPost('code'));
         $userId = (int) $this->session->get('user_id');
+        $isAjax = $this->request->isAJAX();
 
         if (!$userId) {
+            if ($isAjax) {
+                return $this->response->setStatusCode(401)->setJSON([
+                    'success' => false,
+                    'message' => 'Session expirée, veuillez vous reconnecter.',
+                ]);
+            }
+
             return redirect()->to('/');
         }
 
         $codeData = $this->codeRechargeModel->validerCode($code);
         $user = $this->userModel->find($userId);
         $solde = $user['solde_portefeuille'] ?? 0;
+        $csrfName = csrf_token();
+        $csrfHash = csrf_hash();
 
         if ($codeData !== false) {
-            $nouveauSolde = $user['solde_portefeuille'] + $codeData;
+            $nouveauSolde = (float) $solde + (float) $codeData;
             $this->userModel->update($userId, ['solde_portefeuille' => $nouveauSolde]);
+
+            if ($isAjax) {
+                return $this->response->setJSON([
+                    'success' => true,
+                    'message' => 'Code valide ! Votre solde a été mis à jour.',
+                    'solde' => $nouveauSolde,
+                    'csrfName' => $csrfName,
+                    'csrfHash' => $csrfHash,
+                ]);
+            }
 
             // return redirect()->to('/portefeuille');
             return view('portefeuille', ['success' => 'Code valide ! Votre solde a été mis à jour.', 'solde' => $nouveauSolde]);
         } else {
+            if ($isAjax) {
+                return $this->response->setStatusCode(400)->setJSON([
+                    'success' => false,
+                    'message' => 'Code invalide ou déjà utilisé.',
+                    'solde' => $solde,
+                    'csrfName' => $csrfName,
+                    'csrfHash' => $csrfHash,
+                ]);
+            }
+
             return view('portefeuille', ['error' => 'Code invalide ou déjà utilisé.', 'solde' => $solde]);
         }
      }

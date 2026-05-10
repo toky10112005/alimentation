@@ -13,7 +13,7 @@
         <div class="container">
             <a class="navbar-brand" href="/">Gestion d'alimentation</a>
         </div>
-
+        <div><a href="/acheterGold" class="btn btn-outline-light">Acheter Offre Gold</a></div>
         <div><a href="/portefeuille" class="btn btn-primary">Consulter Portefeuille</a></div>
     </nav>
 
@@ -33,13 +33,17 @@
             <?php foreach ($regimes as $regime): ?>
                 <div class="col-12 col-md-6 col-xl-4">
                     <article class="card shadow-sm h-100">
-                        <div class="card-body d-flex flex-column p-4">
-                            <h2 class="h5 mb-3"><?= esc($regime['name']) ?></h2>
+                        <div class="card-body d-flex flex-column p-4 position-relative">
+                            <?php if (!empty($regime['is_bought'])): ?>
+                                <span class="badge text-bg-success position-absolute top-0 end-0 m-3">Régime déjà acheté</span>
+                            <?php endif; ?>
+
+                            <h2 class="h5 mb-3 pe-5"><?= esc($regime['nom']) ?></h2>
 
                             <dl class="mb-4">
                                 <div class="d-flex justify-content-between mb-2">
                                     <dt class="text-muted fw-normal">Impact minimal</dt>
-                                    <dd class="mb-0 fw-semibold"><?= esc($regime['poids_minimal_impact']) ?> kg</dd>
+                                    <dd class="mb-0 fw-semibold"><?= esc($regime['poids_impact_semaine']) ?> kg</dd>
                                 </div>
                                 <div class="d-flex justify-content-between mb-2">
                                     <dt class="text-muted fw-normal">Duree</dt>
@@ -56,12 +60,25 @@
                             </dl>
 
                             <div class="mt-auto">
-                                <a href="/details/<?= esc($regime['id']) ?>" class="btn btn-primary w-100">Voir les details</a>
+                                <?php if (!empty($regime['is_bought'])): ?>
+                                    <button class="btn btn-outline-success w-100" disabled>Régime déjà acheté</button>
+                                <?php else: ?>
+                                    <a href="/details/<?= esc($regime['id']) ?>" class="btn btn-primary w-100">Voir les details</a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </article>
                 </div>
             <?php endforeach; ?>
+        </div>
+
+        <div class="mt-4">
+            <a href="/objectif" class="btn btn-outline-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left me-2" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+                </svg>
+                Retour
+            </a>
         </div>
     </main>
 

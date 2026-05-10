@@ -65,3 +65,6 @@ INSERT INTO codes_recharge (code, valeur) VALUES
 ('bibity', 100.00),
 ('caca', 200.00),
 ('pipi', 500.00);
+
+INSERT INTO gold (prix, description, remise) VALUES
+(100, 'Offre gold qui vous offre 15% de remise sur tout nos Régimes', 15.00);

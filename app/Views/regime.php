@@ -13,15 +13,34 @@
         <div class="container">
             <a class="navbar-brand" href="/">Gestion d'alimentation</a>
         </div>
-        <div><a href="/acheterGold" class="btn btn-outline-light">Acheter Offre Gold</a></div>
-        <div><a href="/portefeuille" class="btn btn-primary">Consulter Portefeuille</a></div>
+        <div class="d-flex gap-2">
+            <a href="/mes-regimes" class="btn btn-outline-light">Mes regimes</a>
+            <a href="/acheterGold" class="btn btn-outline-light">Acheter Offre Gold</a>
+            <a href="/portefeuille" class="btn btn-primary">Consulter Portefeuille</a>
+        </div>
     </nav>
 
     <main class="container py-4">
         <div class="p-4 p-md-5 rounded-3 bg-white border mb-4">
-            <h1 class="h3 mb-2">Regimes proposes</h1>
-            <p class="text-muted mb-0">Choisis le regime qui correspond a ton objectif.</p>
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                <div>
+                    <h1 class="h3 mb-2">Regimes proposes</h1>
+                    <p class="text-muted mb-0">Choisis le regime qui correspond a ton objectif.</p>
+                </div>
+                <div>
+                    <a href="/regime/export-pdf" class="btn btn-outline-primary">
+                        Exporter PDF
+                    </a>
+                </div>
+            </div>
         </div>
+
+        <?php $exportError = session()->getFlashdata('error'); ?>
+        <?php if ($exportError): ?>
+            <div class="alert alert-danger" role="alert">
+                <?= esc($exportError) ?>
+            </div>
+        <?php endif; ?>
 
         <?php if (session('IMC') !== null): ?>
             <div class="alert alert-info" role="alert">
@@ -58,6 +77,17 @@
                                     <dd class="mb-0 fw-bold text-primary"><?= esc(number_format((float) $regime['prix_total'], 2)) ?> €</dd>
                                 </div>
                             </dl>
+
+                            <?php if (!empty($regime['activites'])): ?>
+                                <div class="mb-3">
+                                    <div class="text-muted small mb-2">Activites conseillees</div>
+                                    <ul class="list-unstyled small mb-0">
+                                        <?php foreach ($regime['activites'] as $act): ?>
+                                            <li><?= esc($act['name']) ?> • <?= esc($act['duree_minutes_jour']) ?> min/jour</li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            <?php endif; ?>
 
                             <div class="mt-auto">
                                 <?php if (!empty($regime['is_bought'])): ?>

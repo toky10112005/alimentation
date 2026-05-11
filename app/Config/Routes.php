@@ -27,8 +27,10 @@ $routes->get('/object/(:num)', 'Regime::objectif/$1');
 
 $routes->get('/objectif', 'Regime::objectif');
 $routes->get('/retourRegimes', 'Regime::retourRegimes');
+$routes->get('/regime/export-pdf', 'Regime::exportPdf');
 $routes->get('/retourObjectif', 'AchatGold::retourObjectif');
 $routes->get('/details/(:num)', 'Activite::details/$1');
+$routes->get('/mes-regimes', 'Regime::mesRegimes');
 
 $routes->get('/portefeuille', 'User::valeurportefeuille');
 $routes->post('/saisisCode', 'CodeRecharge::valideCode');

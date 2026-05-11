@@ -34,11 +34,11 @@ INSERT INTO plats (nom, id_categorie, calories) VALUES
 ('Cuisse de poulet aux herbes', 3, 310);
 
 INSERT INTO regimes (nom, description, objectif_type_id, prix_journalier, poids_impact_semaine, pourcentage_viande, pourcentage_poisson, pourcentage_volaille) VALUES
-('Détox Océane', 'Régime léger basé sur les produits de la mer pour une perte rapide.', 1, 15000, -1.2, 10, 60, 30),
-('Mass Gain Pro', 'Régime riche en calories et protéines pour la musculation.', 2, 25000, 0.8, 50, 10, 40),
-('Volailles & Fibres', 'Équilibre parfait entre volaille et légumes pour stabiliser le poids.', 3, 12000, -0.3, 0, 0, 100),
-('Mix Équilibré', 'Variété totale pour une santé optimale au quotidien.', 1, 18000, 0.0, 33.33, 33.33, 33.34),
-('Bœuf & Énergie', 'Régime axé sur la force et l''apport en fer.', 2, 22000, 0.5, 70, 10, 20);
+('Détox Océane', 'Régime léger basé sur les produits de la mer pour une perte rapide.', 1, 6, -1.2, 10, 60, 30),
+('Mass Gain Pro', 'Régime riche en calories et protéines pour la musculation.', 2, 6, 0.8, 50, 10, 40),
+('Volailles & Fibres', 'Équilibre parfait entre volaille et légumes pour stabiliser le poids.', 3, 7, -0.3, 0, 0, 100),
+('Mix Équilibré', 'Variété totale pour une santé optimale au quotidien.', 1, 4, 0.0, 33.33, 33.33, 33.34),
+('Bœuf & Énergie', 'Régime axé sur la force et l''apport en fer.', 2, 7, 0.5, 70, 10, 20);
 
 -- Jour 1
 INSERT INTO regime_details (regime_id, plat_id, jour_numero, id_moment) VALUES 

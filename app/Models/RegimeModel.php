@@ -66,9 +66,25 @@ class RegimeModel extends Model
             $builder->where('regimes.objectif_type_id', $objectifTypeId);
         }
 
-        if (stripos($objectifLabel, 'reduire') !== false) {
+        $filterMode = null;
+        if ($objectifTypeId === 2) {
+            $filterMode = 'reduire';
+        } elseif ($objectifTypeId === 1) {
+            $filterMode = 'augmenter';
+        } else {
+            $label = $objectifLabel;
+            $normalized = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $label);
+            $normalized = strtolower($normalized ?: $label);
+            if (strpos($normalized, 'reduire') !== false) {
+                $filterMode = 'reduire';
+            } elseif (strpos($normalized, 'augmenter') !== false) {
+                $filterMode = 'augmenter';
+            }
+        }
+
+        if ($filterMode === 'reduire') {
             $builder->having('balance <', 0, false);
-        } elseif (stripos($objectifLabel, 'augmenter') !== false) {
+        } elseif ($filterMode === 'augmenter') {
             $builder->having('balance >', 0, false);
         } else {
             $builder->orderBy('ABS(balance)', 'asc', false);
@@ -83,5 +99,27 @@ class RegimeModel extends Model
         }
 
         return $results;
+    }
+
+    public function getBoughtRegimesByUser(int $userId): array
+    {
+        return $this->select('regimes.*, ar.date_achat, ar.duree_jours, ar.prix_total')
+            ->join('achats_regimes ar', 'ar.regime_id = regimes.id')
+            ->where('ar.user_id', $userId)
+            ->orderBy('ar.date_achat', 'desc')
+            ->findAll();
+    }
+
+    public function getRegimePlats(int $regimeId): array
+    {
+        return $this->db->table('regime_details rd')
+            ->select('rd.jour_numero, rd.id_moment, m.libelle AS moment, p.nom AS plat, p.calories')
+            ->join('plats p', 'p.id = rd.plat_id')
+            ->join('moments_journee m', 'm.id = rd.id_moment')
+            ->where('rd.regime_id', $regimeId)
+            ->orderBy('rd.jour_numero', 'asc')
+            ->orderBy('rd.id_moment', 'asc')
+            ->get()
+            ->getResultArray();
     }
 }

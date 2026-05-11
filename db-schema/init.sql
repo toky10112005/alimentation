@@ -148,10 +148,10 @@ CREATE TABLE achats_gold (
 
 
 
--- Sample regimes mapped to objectif_type_id
-INSERT INTO regimes (nom, description, objectif_type_id, prix_journalier, poids_impact_semaine, pourcentage_viande, pourcentage_poisson, pourcentage_volaille) VALUES
-('Régime Hypercalorique standard', 'Programme hypercalorique standard pour prise de masse', 1, 15.00, 5.0, 30.0, 40.0, 30.0),
-('Régime Hypercalorique riche en protéines', 'Prise de masse axée protéines', 1, 20.00, 7.0, 40.0, 30.0, 30.0),
-('Régime Hypocalorique standard', 'Programme hypocalorique standard pour perte de poids', 2, 20.00, -5.0, 20.0, 40.0, 40.0),
-('Régime Équilibré standard', 'Programme pour atteindre IMC idéal', 3, 18.00, 0.0, 25.0, 35.0, 40.0);
+-- -- Sample regimes mapped to objectif_type_id
+-- INSERT INTO regimes (nom, description, objectif_type_id, prix_journalier, poids_impact_semaine, pourcentage_viande, pourcentage_poisson, pourcentage_volaille) VALUES
+-- ('Régime Hypercalorique standard', 'Programme hypercalorique standard pour prise de masse', 1, 15.00, 5.0, 30.0, 40.0, 30.0),
+-- ('Régime Hypercalorique riche en protéines', 'Prise de masse axée protéines', 1, 20.00, 7.0, 40.0, 30.0, 30.0),
+-- ('Régime Hypocalorique standard', 'Programme hypocalorique standard pour perte de poids', 2, 20.00, -5.0, 20.0, 40.0, 40.0),
+-- ('Régime Équilibré standard', 'Programme pour atteindre IMC idéal', 3, 18.00, 0.0, 25.0, 35.0, 40.0);
 

@@ -140,6 +140,111 @@ class Regime extends BaseController
         ];
     }
 
+    private function buildSuggestedRegimesData(int $userId): array
+    {
+        $context = $this->buildSuggestionContext($userId);
+        $user = $this->userModel->find($userId);
+        $profile = $this->healthProfileModel->getLatestForUser($userId);
+        $objectiveData = $this->userObjectifModel->getByUserId($userId);
+        $boughtRegimeIds = $this->achatRegimeModel->getRegimeIdsByUser($userId);
+
+        $objective = $context['objectifId'] > 0 ? $this->objectifTypeModel->find($context['objectifId']) : null;
+
+        $genreLabel = 'Femme';
+        if ($user && isset($user['id_genre'])) {
+            $genre = $this->genreModel->find((int) $user['id_genre']);
+            $genreLabel = $genre ? $genre['libelle'] : $genreLabel;
+        }
+
+        $maintenance = (float) $context['maintenance'];
+        $regimes = $this->regimeModel->getSuggestedRegimes(
+            $maintenance,
+            $context['objectifLabel'],
+            $context['objectifId']
+        );
+
+        $regimes = $this->formatRegimesForView(
+            $regimes,
+            $context['poidsActuel'],
+            $context['poidsCible'],
+            $context['objectifId'],
+            $boughtRegimeIds
+        );
+
+        $regimes = $this->attachActivities($regimes);
+
+        $imc = null;
+        if ($profile && isset($profile['taille'], $profile['poids_actuel'])) {
+            $imc = $this->userModel->calculeIMC((int) $profile['taille'], (int) $profile['poids_actuel']);
+        }
+
+        // Filtrer pour exclure les régimes déjà achetés du PDF
+        $regimesForPdf = array_filter($regimes, function ($regime) {
+            return empty($regime['is_bought']);
+        });
+
+        return [
+            'user' => $user,
+            'genreLabel' => $genreLabel,
+            'profile' => $profile,
+            'objectif' => $objective,
+            'objectifData' => $objectiveData,
+            'maintenance' => $maintenance,
+            'imc' => $imc,
+            'regimes' => $regimesForPdf,
+            'generatedAt' => date('d/m/Y H:i'),
+        ];
+    }
+
+    private function renderRegimePdf(array $data): string
+    {
+        $html = view('regime_pdf', $data);
+        $tempDir = WRITEPATH . 'tmp';
+
+        if (!is_dir($tempDir)) {
+            mkdir($tempDir, 0775, true);
+        }
+
+        $htmlBase = tempnam($tempDir, 'regime_pdf_');
+        $pdfBase = tempnam($tempDir, 'regime_pdf_');
+
+        if ($htmlBase === false || $pdfBase === false) {
+            throw new \RuntimeException('Impossible de preparer les fichiers temporaires.');
+        }
+
+        $htmlFile = $htmlBase . '.html';
+        $pdfFile = $pdfBase . '.pdf';
+
+        file_put_contents($htmlFile, $html);
+
+        $command = sprintf(
+            'wkhtmltopdf --enable-local-file-access --page-size A4 %s %s 2>&1',
+            escapeshellarg($htmlFile),
+            escapeshellarg($pdfFile)
+        );
+
+        $output = [];
+        $returnCode = 0;
+        exec($command, $output, $returnCode);
+
+        if (is_file($htmlFile)) {
+            unlink($htmlFile);
+        }
+
+        if ($returnCode !== 0 || !is_file($pdfFile) || filesize($pdfFile) === 0) {
+            if (is_file($pdfFile)) {
+                unlink($pdfFile);
+            }
+
+            throw new \RuntimeException('Impossible de generer le PDF des regimes.');
+        }
+
+        $pdfContent = file_get_contents($pdfFile);
+        unlink($pdfFile);
+
+        return $pdfContent !== false ? $pdfContent : '';
+    }
+
     private function attachActivities(array $regimes): array
     {
         foreach ($regimes as $index => $regime) {
@@ -187,7 +292,7 @@ class Regime extends BaseController
         return redirect()->to(site_url('/objectif?objectif=' . $objectifId));
     }
     
-   public function objectif(){
+    public function objectif(){
     $objectifId = (int) $this->request->getGet('objectif');
     $userId = (int) $this->session->get('user_id');
 
@@ -197,47 +302,43 @@ class Regime extends BaseController
 
     $this->session->set('objectif', $objectifId);
 
-    $profile = $this->healthProfileModel->getLatestForUser($userId);
-    $user = $this->userModel->find($userId);
     $objectif = $this->objectifTypeModel->find($objectifId);
 
-    // If the objectif itself doesn't exist, nothing to show
     if (!$objectif) {
         return view('regime', ['regimes' => []]);
     }
 
-    // Determine genre label if user exists
-    $genreLabel = 'Femme';
-    if ($user && isset($user['id_genre'])) {
-        $genre = $this->genreModel->find((int) $user['id_genre']);
-        $genreLabel = $genre ? $genre['libelle'] : $genreLabel;
-    }
+    $payload = $this->buildSuggestedRegimesData($userId);
 
-    
-    $maintenance = 0.0;
-    if ($profile && isset($profile['poids_actuel'], $profile['taille'])) {
-        $age = 25;
-        $mb = $this->userModel->calculeMB(
-            (float) $profile['poids_actuel'],
-            (float) $profile['taille'],
-            $age,
-            $genreLabel
-        );
-        $maintenance = $this->userModel->calculeMaintenance($mb);
-    }
+    return view('regime', ['regimes' => $payload['regimes']]);
+   }
 
-    $regimes = $this->regimeModel->getSuggestedRegimes($maintenance, $objectif['libelle'], $objectifId);
-    $objectifUser = $this->userObjectifModel->getByUserId($userId);
-    $boughtRegimeIds = $this->achatRegimeModel->getRegimeIdsByUser($userId);
+   public function exportPdf()
+   {
+        $userId = (int) $this->session->get('user_id');
 
-    $poidsActuel = isset($profile['poids_actuel']) ? (float) $profile['poids_actuel'] : null;
-    $poidsCible = ($objectifUser && isset($objectifUser['poids_cible'])) ? (float) $objectifUser['poids_cible'] : null;
+        if (!$userId) {
+            return redirect()->to('/');
+        }
 
-    $regimes = $this->formatRegimesForView($regimes, $poidsActuel, $poidsCible, $objectifId, $boughtRegimeIds);
+        $payload = $this->buildSuggestedRegimesData($userId);
 
-    $regimes = $this->attachActivities($regimes);
+        if (empty($payload['regimes'])) {
+            return redirect()->to('/objectif');
+        }
 
-    return view('regime', ['regimes' => $regimes]);
+        try {
+            $pdfContent = $this->renderRegimePdf($payload);
+        } catch (\Throwable $exception) {
+            return redirect()->back()->with('error', $exception->getMessage());
+        }
+
+        $filename = 'regimes-proposes-' . date('Ymd-His') . '.pdf';
+
+        return $this->response
+            ->setHeader('Content-Type', 'application/pdf')
+            ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
+            ->setBody($pdfContent);
    }
 
    public function achat($regimeId){

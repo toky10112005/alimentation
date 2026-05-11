@@ -22,9 +22,25 @@
 
     <main class="container py-4">
         <div class="p-4 p-md-5 rounded-3 bg-white border mb-4">
-            <h1 class="h3 mb-2">Regimes proposes</h1>
-            <p class="text-muted mb-0">Choisis le regime qui correspond a ton objectif.</p>
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                <div>
+                    <h1 class="h3 mb-2">Regimes proposes</h1>
+                    <p class="text-muted mb-0">Choisis le regime qui correspond a ton objectif.</p>
+                </div>
+                <div>
+                    <a href="/regime/export-pdf" class="btn btn-outline-primary">
+                        Exporter PDF
+                    </a>
+                </div>
+            </div>
         </div>
+
+        <?php $exportError = session()->getFlashdata('error'); ?>
+        <?php if ($exportError): ?>
+            <div class="alert alert-danger" role="alert">
+                <?= esc($exportError) ?>
+            </div>
+        <?php endif; ?>
 
         <?php if (session('IMC') !== null): ?>
             <div class="alert alert-info" role="alert">

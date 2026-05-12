@@ -38,6 +38,10 @@ class User extends BaseController
         return view('login');
     }
 
+    public function loginPage(){
+        return view('login');
+    }
+
     public function login(){
         $email = $this->request->getPost('email');
         $mot_de_passe = $this->request->getPost('password');
@@ -232,6 +236,11 @@ class User extends BaseController
 
     //     return view('gold', ['solde' => $user['solde_portefeuille']]);
     // }
+
+    public function logout(){
+        $this->session->destroy();
+        return redirect()->to('/');
+    }
 
    
 }

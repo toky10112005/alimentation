@@ -239,11 +239,11 @@
                 </tr>
                 <tr>
                     <td class="label">Prix journalier</td>
-                    <td class="value"><?= esc(number_format((float) ($regime['prix_journalier'] ?? 0), 2, ',', ' ')) ?> €</td>
+                    <td class="value"><?= esc(number_format((float) ($regime['prix_journalier'] ?? 0), 2, ',', ' ')) ?> Ar</td>
                 </tr>
                 <tr>
                     <td class="label">Prix total</td>
-                    <td class="value"><?= esc(number_format((float) ($regime['prix_total'] ?? 0), 2, ',', ' ')) ?> €</td>
+                    <td class="value"><?= esc(number_format((float) ($regime['prix_total'] ?? 0), 2, ',', ' ')) ?> Ar</td>
                 </tr>
             </table>
 

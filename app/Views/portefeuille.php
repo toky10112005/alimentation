@@ -1,86 +1,220 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portefeuille • Gestion d'alimentation</title>
-    <link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/theme.css" rel="stylesheet">
-</head>
-<body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="/">Gestion d'alimentation</a>
-        </div>
-    </nav>
+<?= $this->extend('layouts/main') ?>
 
-    <main class="container py-4">
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-8 col-lg-6">
-                <div class="card shadow-sm">
-                    <div class="card-body p-4">
-                        <h1 class="h4 mb-4">Gestion du Portefeuille</h1>
+<?= $this->section('title') ?>Portefeuille - NutriLife<?= $this->endSection() ?>
 
-                        <div id="wallet-alerts">
+<?= $this->section('content') ?>
 
-                        <?php if (isset($success)): ?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle me-2" viewBox="0 0 16 16">
-                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                    <path d="m10.97 4.97-.02.02-3.6 3.85-1.74-1.885a.5.5 0 0 0-.712.712l2.55 2.75a.5.5 0 0 0 .74-.037l4.005-4.287a.5.5 0 0 0-.738-.847z"/>
-                                </svg>
-                                <?= esc($success) ?>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        <?php endif; ?>
+<style>
+    .wallet-hero {
+        background: linear-gradient(135deg, rgba(15, 118, 110, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+        padding: 3rem 0;
+        margin-bottom: 3rem;
+    }
 
-                        <?php if (isset($error)): ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle me-2" viewBox="0 0 16 16">
-                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-                                </svg>
-                                <?= esc($error) ?>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        <?php endif; ?>
+    .wallet-hero h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #1F2937;
+        margin-bottom: 0.5rem;
+    }
 
-                        </div>
+    .wallet-hero p {
+        color: #6B7280;
+        font-size: 1.1rem;
+    }
 
-                        <div class="bg-light p-3 rounded mb-4">
-                            <p class="text-muted mb-1">Solde du portefeuille</p>
-                            <h2 id="wallet-balance" class="h3 mb-0 text-primary fw-bold"><?= esc(number_format((float) ($solde ?? 0), 2)) ?> €</h2>
-                        </div>
+    .wallet-container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
 
-                        <div class="card border-0 bg-white mb-4">
-                            <div class="card-body p-0">
-                                <h3 class="h6 text-muted mb-3">Ajouter des fonds</h3>
-                                <form id="recharge-form" action="/saisisCode" method="post" data-ajax-url="/saisisCode">
-                                    <?= csrf_field() ?>
-                                    <div class="mb-3">
-                                        <label for="code" class="form-label">Code de recharge</label>
-                                        <input type="text" class="form-control" name="code" id="code" placeholder="Saisir le code" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary w-100">Valider</button>
-                                </form>
-                            </div>
-                        </div>
+    .balance-card {
+        background: linear-gradient(135deg, #0F766E 0%, #14B8A6 100%);
+        color: white;
+        border-radius: 1.5rem;
+        padding: 2.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 10px 40px rgba(15, 118, 110, 0.2);
+        text-align: center;
+    }
 
-                        <div class="d-grid gap-2">
-                            <a href="/retourRegimes" class="btn btn-outline-secondary">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left me-2" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
-                                </svg>
-                                Retour
-                            </a>
-                        </div>
-                    </div>
-                </div>
+    .balance-label {
+        opacity: 0.9;
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .balance-amount {
+        font-size: 3rem;
+        font-weight: 800;
+        color: #FCD34D;
+    }
+
+    .recharge-card {
+        background: white;
+        border-radius: 1.5rem;
+        padding: 2.5rem 2rem;
+        box-shadow: 0 4px 15px rgba(15, 118, 110, 0.08);
+        margin-bottom: 2rem;
+    }
+
+    .recharge-card h3 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #1F2937;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        display: block;
+        font-weight: 600;
+        color: #1F2937;
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid #E5E7EB;
+        border-radius: 0.75rem;
+        font-size: 1rem;
+        transition: all 0.3s;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: #0F766E;
+        box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+    }
+
+    .btn-validate {
+        width: 100%;
+        padding: 1rem;
+        background: linear-gradient(135deg, #0F766E 0%, #14B8A6 100%);
+        color: white;
+        border: none;
+        border-radius: 0.75rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(15, 118, 110, 0.3);
+    }
+
+    .btn-validate:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(15, 118, 110, 0.4);
+    }
+
+    .btn-back {
+        width: 100%;
+        padding: 1rem;
+        background: white;
+        color: #0F766E;
+        border: 2px solid #0F766E;
+        border-radius: 0.75rem;
+        font-weight: 700;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .btn-back:hover {
+        background: #0F766E;
+        color: white;
+    }
+
+    .alert-success {
+        background: #D1FAE5;
+        border: 1px solid #A7F3D0;
+        color: #065F46;
+        padding: 1rem;
+        border-radius: 0.75rem;
+        display: flex;
+        gap: 0.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .alert-error {
+        background: #FEE2E2;
+        border: 1px solid #FECACA;
+        color: #991B1B;
+        padding: 1rem;
+        border-radius: 0.75rem;
+        display: flex;
+        gap: 0.8rem;
+        margin-bottom: 1.5rem;
+    }
+</style>
+
+<div class="wallet-hero">
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+            <div>
+                <h1>Gestion du Portefeuille</h1>
+                <p>Recharge et manage ton solde facilement</p>
             </div>
+            <a href="<?= base_url('objectif') ?>" style="padding: 0.8rem 1.5rem; background: linear-gradient(135deg, #0F766E 0%, #14B8A6 100%); color: white; border-radius: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; white-space: nowrap;">
+                <i class="bi bi-bag-check"></i> Voir les régimes
+            </a>
         </div>
-    </main>
+    </div>
+</div>
 
-    <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/assets/js/portefeuille.js"></script>
-</body>
-</html>
+<div class="container">
+    <div class="wallet-container">
+        <?php if (isset($success)): ?>
+            <div class="alert-success">
+                <i class="bi bi-check-circle-fill" style="flex-shrink: 0;"></i>
+                <div><?= esc($success) ?></div>
+            </div>
+        <?php endif; ?>
+
+        <?php if (isset($error)): ?>
+            <div class="alert-error">
+                <i class="bi bi-exclamation-circle-fill" style="flex-shrink: 0;"></i>
+                <div><?= esc($error) ?></div>
+            </div>
+        <?php endif; ?>
+
+        <div class="balance-card">
+            <div class="balance-label">
+                <i class="bi bi-wallet-fill"></i>
+                Solde actuel
+            </div>
+            <div class="balance-amount" id="wallet-balance"><?= esc(number_format((float) ($solde ?? 0), 2)) ?> Ar</div>
+        </div>
+
+        <div class="recharge-card">
+            <h3><i class="bi bi-gift-fill" style="color: #F59E0B; margin-right: 0.5rem;"></i>Ajouter des fonds</h3>
+            <form id="recharge-form" action="/saisisCode" method="post" data-ajax-url="/saisisCode">
+                <?= csrf_field() ?>
+                <div class="form-group">
+                    <label for="code" class="form-label">Code de recharge</label>
+                    <input type="text" class="form-input" name="code" id="code" placeholder="Entrez votre code de recharge" required>
+                </div>
+                <button type="submit" class="btn-validate">Valider le code</button>
+            </form>
+        </div>
+
+        <a href="/retourRegimes" class="btn-back">
+            <i class="bi bi-arrow-left"></i>
+            Retour aux régimes
+        </a>
+    </div>
+</div>
+
+<?= $this->endSection() ?>

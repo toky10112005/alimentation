@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriLife - Transformez votre Alimentation</title>
+    <meta name="description" content="Découvrez NutriLife, la plateforme premium de nutrition et fitness personnalisée pour transformer votre alimentation.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <!-- CSS Landing -->
+    <link href="<?= base_url('assets/css/landing.css') ?>" rel="stylesheet">
+</head>
+<body>
+    <!-- ============================================
+         NAVBAR
+         ============================================ -->
+    <nav class="navbar-landing">
+        <div class="navbar-landing-container">
+            <a href="/" class="navbar-logo">
+                <i class="bi bi-leaf-fill"></i>
+                <span>NutriLife</span>
+            </a>
+            
+            <ul class="navbar-links">
+                <li><a href="#features">Fonctionnalités</a></li>
+                <li><a href="#regimes">Régimes</a></li>
+                <li><a href="#testimonials">Témoignages</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            
+            <a href="<?= base_url('user/login') ?>" class="navbar-btn">
+                <i class="bi bi-box-arrow-in-right"></i> Connexion
+            </a>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         HERO SECTION
+         ============================================ -->
+    <section class="hero-landing">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Transformez votre <span class="highlight">Alimentation</span> en 30 Jours</h1>
+                <p>Découvrez nos programmes personnalisés de nutrition et fitness, conçus par des experts en santé pour vous aider à atteindre vos objectifs.</p>
+                
+                <div class="hero-buttons">
+                    <a href="<?= base_url('user/register') ?>" class="btn-primary-landing">
+                        <i class="bi bi-play-fill"></i> Commencer Gratuitement
+                    </a>
+                    <a href="#regimes" class="btn-secondary-landing">
+                        <i class="bi bi-arrow-right"></i> Découvrir nos régimes
+                    </a>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">5K+</div>
+                        <div class="stat-label">Utilisateurs heureux</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Régimes uniques</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-image">
+                <img src="<?= base_url('images/r1.jpeg') ?>" alt="Alimentation saine et équilibrée">
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FEATURES SECTION
+         ============================================ -->
+    <section class="features-section" id="features">
+        <div class="features-container">
+            <div class="section-title">
+                <h2>Pourquoi Choisir NutriLife?</h2>
+                <p class="section-subtitle">Une solution complète pour transformer votre mode de vie</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-person-check-fill"></i>
+                    </div>
+                    <h3>Programmes Personnalisés</h3>
+                    <p>Adaptés à votre profil, vos objectifs et vos préférences alimentaires uniques</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-shield-check-fill"></i>
+                    </div>
+                    <h3>100% Sécurisé</h3>
+                    <p>Vos données sont protégées avec les meilleures normes de sécurité internationales</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-graph-up-arrow"></i>
+                    </div>
+                    <h3>Résultats Rapides</h3>
+                    <p>Voyez les résultats en 2-3 semaines avec nos programmes scientifiquement validés</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-chat-dots-fill"></i>
+                    </div>
+                    <h3>Support 24/7</h3>
+                    <p>Notre équipe d'experts nutritionnistes est disponible pour vous guider</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-book-fill"></i>
+                    </div>
+                    <h3>1000+ Recettes</h3>
+                    <p>Une bibliothèque complète de recettes délicieuses et nutritives</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-phone-fill"></i>
+                    </div>
+                    <h3>Application Mobile</h3>
+                    <p>Suivez vos progrès n'importe où, n'importe quand avec notre app mobile</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         REGIMES PREVIEW SECTION
+         ============================================ -->
+    <section class="regimes-section" id="regimes">
+        <div class="regimes-container">
+            <div class="section-title">
+                <h2>Nos Régimes Premium</h2>
+                <p class="section-subtitle">Choisissez le programme parfait pour vous</p>
+            </div>
+            
+            <div class="regimes-grid">
+                <div class="regime-card">
+                    <img src="<?= base_url('images/r1.jpeg') ?>" alt="Régime Minceur Premium" class="regime-card-image">
+                    <div class="regime-card-body">
+                        <span class="regime-badge">POPULAIRE</span>
+                        <h3>Minceur Premium</h3>
+                        <p>Programme complet pour une perte de poids saine et durable. Idéal pour les personnes souhaitant perdre 5-15kg.</p>
+                        <div class="regime-price">2990 Ar<span style="font-size: 0.6em; color: var(--text-light);">/jour</span></div>
+                        <a href="<?= base_url('regime') ?>" class="regime-btn">Découvrir →</a>
+                    </div>
+                </div>
+                
+                <div class="regime-card">
+                    <img src="<?= base_url('images/r2.jpeg') ?>" alt="Régime Muscle" class="regime-card-image">
+                    <div class="regime-card-body">
+                        <span class="regime-badge" style="background: linear-gradient(135deg, var(--accent) 0%, #D97706 100%);">GAIN MUSCULAIRE</span>
+                        <h3>Gain Musculaire</h3>
+                        <p>Riche en protéines pour développer votre masse musculaire. Parfait pour les sportifs et musculation.</p>
+                        <div class="regime-price">3490 Ar<span style="font-size: 0.6em; color: var(--text-light);">/jour</span></div>
+                        <a href="<?= base_url('regime') ?>" class="regime-btn">Découvrir →</a>
+                    </div>
+                </div>
+                
+                <div class="regime-card">
+                    <img src="<?= base_url('images/r3.jpeg') ?>" alt="Régime Équilibré" class="regime-card-image">
+                    <div class="regime-card-body">
+                        <span class="regime-badge" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);">ÉQUILIBRE</span>
+                        <h3>Équilibre Santé</h3>
+                        <p>Un programme équilibré pour maintenir une bonne santé et un poids optimal. Pour tous les objectifs.</p>
+                        <div class="regime-price">2490 Ar<span style="font-size: 0.6em; color: var(--text-light);">/jour</span></div>
+                        <a href="<?= base_url('regime') ?>" class="regime-btn">Découvrir →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 4rem;">
+                <a href="<?= base_url('regime') ?>" class="btn-primary-landing">
+                    <i class="bi bi-arrow-right"></i> Voir tous les régimes
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         TESTIMONIALS SECTION
+         ============================================ -->
+    <section class="testimonials-section" id="testimonials">
+        <div class="testimonials-container">
+            <div class="section-title">
+                <h2>Ce que Disent nos Utilisateurs</h2>
+                <p class="section-subtitle">Découvrez les histoires de transformation de nos clients</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="testimonial-text">"J'ai perdu 12kg en 3 mois avec NutriLife. Les programmes sont vraiment personnalisés et faciles à suivre. Merci!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MJ</div>
+                        <div class="author-info">
+                            <h4>Marie Jean</h4>
+                            <p>Utilisateur Premium</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="testimonial-text">"La meilleure application de nutrition que j'ai essayée. Le support client est excellent et les résultats sont incroyables!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">PR</div>
+                        <div class="author-info">
+                            <h4>Pierre Roux</h4>
+                            <p>Fitness Enthusiast</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="testimonial-text">"Enfin une plateforme qui comprend vraiment mes besoins nutritionnels. Personnalisation au top, recettes délicieuses!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SL</div>
+                        <div class="author-info">
+                            <h4>Sophie Leclerc</h4>
+                            <p>Coach Sportive</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         CTA SECTION
+         ============================================ -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2>Prêt à Transformer Votre Vie?</h2>
+            <p>Rejoignez des milliers d'utilisateurs qui ont déjà atteint leurs objectifs de santé avec NutriLife</p>
+            
+            <div class="cta-buttons">
+                <a href="<?= base_url('user/register') ?>" class="btn-cta-white">
+                    <i class="bi bi-play-fill"></i> Commencer Gratuitement
+                </a>
+                <a href="<?= base_url('regime') ?>" class="btn-cta-white" style="background: transparent; color: white; border: 2px solid white;">
+                    <i class="bi bi-arrow-right"></i> Explorer les régimes
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="footer-landing">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>À Propos</h4>
+                    <ul>
+                        <li><a href="#">À propos de NutriLife</a></li>
+                        <li><a href="#">Notre Mission</a></li>
+                        <li><a href="#">Notre Équipe</a></li>
+                        <li><a href="#">Carrières</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Produits</h4>
+                    <ul>
+                        <li><a href="#">Nos Régimes</a></li>
+                        <li><a href="#">Recettes</a></li>
+                        <li><a href="#">Applications</a></li>
+                        <li><a href="#">Prix</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Centre d'aide</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Communauté</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Légal</h4>
+                    <ul>
+                        <li><a href="#">Conditions d'utilisation</a></li>
+                        <li><a href="#">Politique de confidentialité</a></li>
+                        <li><a href="#">Cookies</a></li>
+                        <li><a href="#">Mentions légales</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 NutriLife. Tous droits réservés. | Transformez votre Alimentation, Transformez votre Vie</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .regime-card, .testimonial-card').forEach(el => {
+            el.style.opacity = '0';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

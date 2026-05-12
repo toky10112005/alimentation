@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            balanceElement.textContent = Number(payload.solde || 0).toFixed(2) + ' €';
+            balanceElement.textContent = Number(payload.solde || 0).toFixed(2) + ' Ar';
             renderAlert('success', payload.message || 'Code valide ! Votre solde a été mis à jour.');
 
             const codeInput = form.querySelector('#code');

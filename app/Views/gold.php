@@ -41,7 +41,7 @@
                                 <div class="my-3 flex-grow-1">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <span class="text-muted">Prix</span>
-                                        <strong class="text-primary fs-5"><?= esc(number_format((float) $gold['prix'], 2)) ?> €</strong>
+                                        <strong class="text-primary fs-5"><?= esc(number_format((float) $gold['prix'], 2)) ?> Ar</strong>
                                     </div>
                                 </div>
 
